@@ -1,0 +1,83 @@
+﻿@model EditProjectsForm
+
+<div id="editProjectModal" class="modal">
+	<div class="modal-content">
+
+		<div class="modal-header">
+			<h3>Edit Project</h3>
+			<button type="button" class="btn-close" data-close="true"><i class="fa-solid fa-xmark"></i></button>
+		</div>
+
+		<form novalidate method="post" asp-action="Edit" asp-controller="Projects">
+
+			<input asp-for="Id" readonly type="hidden" />
+
+			<div class="image-previewer circle ">
+				<img src="" class="image-preview" />
+				<input asp-for="ProjectImage" class="d-none" accept="image/*" />
+			</div>
+
+
+			<div class="form-group">
+				<label asp-for="ProjectName"></label>
+				<div class="field-group">
+					<input asp-for="ProjectName" />
+					<span asp-validation-for="ProjectName"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="ClientName"></label>
+				<div class="field-group">
+					<input asp-for="ClientName" />
+					<span asp-validation-for="ClientName"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="Description"></label>
+				<div class="field-group">
+					<input asp-for="Description" />
+					<span asp-validation-for="Description"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="StartDate"></label>
+				<div class="field-group">
+					<input asp-for="StartDate" />
+					<span asp-validation-for="StartDate"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="EndDate"></label>
+				<div class="field-group">
+					<input asp-for="EndDate" />
+					<span asp-validation-for="EndDate"></span>
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				@* <select asp-for="UserId" asp-items="" class="form-control" value="UserId"> *@
+					<option value="0" selected disabled>-- Select Client --</option>
+				</select>
+				<span asp-validation-for="UserId"></span>
+			</div>
+
+
+
+			<div class="form-group">
+				<label asp-for="Budget"></label>
+				<div class="field-group">
+					<input asp-for="Budget" />
+					<span asp-validation-for="Budget"></span>
+				</div>
+			</div>
+
+			<button class="btn btn-blue btn-submit" type="submit">Edit</button>
+		</form>
+
+	</div>
+</div>

@@ -1,0 +1,98 @@
+﻿@model CreateAccountForm
+@{
+	Layout = "_CleanLayout";
+	ViewData["Title"] = "Create Account";
+}
+
+
+<section id="createAccount">
+	<h1 class="form-headline">Create Account</h1>
+
+	<a class="btn btn-grey btn-google" href="#">
+		<img src="~/Images/google-icon.svg" alt="google icon">
+		<p>Login with Google</p>
+	</a>
+
+	<div class="divider">
+		<span>OR</span>
+	</div>
+
+	<form novalidate method="post" asp-action="CreateAccount" asp-controller="Auth">
+
+		<div class="form-group">
+			<label asp-for="FirstName"></label>
+			<div class="field-group">
+				<input asp-for="FirstName" />
+				<span asp-validation-for="FirstName"></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label asp-for="LastName"></label>
+			<div class="field-group">
+				<input asp-for="LastName" />
+				<span asp-validation-for="LastName"></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label asp-for="Email"></label>
+			<div class="field-group">
+				<input asp-for="Email" />
+				<span asp-validation-for="Email"></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label asp-for="StreetName"></label>
+			<div class="field-group">
+				<input asp-for="StreetName" />
+				<span asp-validation-for="StreetName"></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label asp-for="PostalCode"></label>
+			<div class="field-group">
+				<input asp-for="PostalCode" />
+				<span asp-validation-for="PostalCode"></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label asp-for="City"></label>
+			<div class="field-group">
+				<input asp-for="City" />
+				<span asp-validation-for="City"></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label asp-for="Password"></label>
+			<div class="field-group">
+				<input asp-for="Password" />
+				<span asp-validation-for="Password"></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label asp-for="ConfirmPassword"></label>
+			<div class="field-group">
+				<input asp-for="ConfirmPassword" />
+				<span asp-validation-for="ConfirmPassword"></span>
+			</div>
+		</div>
+
+
+		<div class="checkbox-group">
+			<div>
+				<input id="remember" type="checkbox" name="remember">
+				<label for="remember">Remember me</label>
+			</div>
+			<a href="#">Forgot Password?</a>
+		</div>
+
+
+		<button class="btn btn-blue btn-submit" type="submit">Create account</button>
+	</form>
+</section>

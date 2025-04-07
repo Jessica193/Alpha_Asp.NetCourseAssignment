@@ -1,0 +1,19 @@
+﻿@{
+	ViewData["Title"] = "Clients";
+}
+
+<partial name="Partials/Sections/_AddClientModal" />
+<partial name="Partials/Sections/_EditClientModal" />
+
+
+<section id="clients">
+
+	<header class="portal-layout-main-header">
+		<h2>Clients</h2>
+		<button type="button" data-modal="true" data-target="#addClientModal" class="btn btn-blue btn-add"><i class="fa-solid fa-plus"></i>Add Client</button>
+	</header>
+
+	@await Html.PartialAsync("Partials/Sections/_ClientList")
+
+</section>
+
