@@ -1,5 +1,10 @@
 ﻿<nav class="nav-links">
 
+    <a class="nav-link @(Context.Request.Path == "/admin/dashboard" ? "active" : "")" asp-action="dashboard" asp-controller="admin">
+        <i class="fa-duotone fa-solid fa-grid-horizontal"></i>
+        <span>Dashboard</span>
+    </a>
+
     <a class="nav-link @(Context.Request.Path == "/admin/projects" ? "active" : "")" asp-action="projects" asp-controller="admin">
         <i class="fa-duotone fa-solid fa-briefcase"></i>
         <span>Projects</span>

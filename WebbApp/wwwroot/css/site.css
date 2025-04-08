@@ -461,9 +461,29 @@ form {
         justify-content: space-between;
     }
 
+    form .terms-link {
+    color: var(--Accent--);
+    text-decoration: none;
+    }
+
+    form .terms-link:hover {
+        text-decoration: underline;
+    }
+
+
+    form .terms-label {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    } 
+
+
+
 input[type="checkbox"] {
     height: 15px;
     width: 15px;
+    accent-color: var(--Accent--);
+    cursor: pointer;
 }
 
 /*badges*/
@@ -477,14 +497,18 @@ input[type="checkbox"] {
 
 /*notifications*/
 .alert-notification {
-    padding: 1rem;
+    padding: .8rem;
     border-radius: .9rem;
+    text-align: center;
 }
 
-    .alert-notification error {
+    .alert-notification p {
+        margin-bottom: 0;
+    }
+
+    .alert-notification.error {
         background-color: var(--RedOpacity10);
         color: var(--DarkRed--);
-        margin: 2rem 0;
     }
 
 /*image-previewer*/
@@ -655,7 +679,7 @@ input[type="checkbox"] {
 
 #login {
     display: grid;
-    gap: 3rem;
+    gap: 1rem;
     padding: 1rem 3rem;
 }
     #login h1 {
@@ -675,89 +699,39 @@ input[type="checkbox"] {
         text-align: center;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* views */
-/*.container {
-    margin: 3rem auto;
-    width: 80%;
-
-    @media (width >= 768px) {
-        max-width: 720px;
+    #createAccount .alternative-text {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        gap: .3rem;
+        font-weight: var(--font-semibold);
     }
-
-    @media (width >= 992px) {
-        max-width: 960px;
-    }
-
-    @media (width >= 1400px) {
-        max-width: 1320px;
-    }
-}*/
-
-
-
-/* UTILITY CLASSES FORMS */
-/*
-}
-
-
-
-
-
-.input-group {
-    display: grid;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-    .input-group input {
-        border: 1px solid var(--Border100--);
-        color: var(--BodyLight--);
-        border-radius: 0.5em !important;
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-    }
-
-    .input-group label {
-        font-weight: var(--font-semibold)
-    }
-
-.checkbox-group {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-    .checkbox-group .terms-link {
-        color: var(--Accent--);
-    }
-
-.signup-surface button {
-    width: 100%;
-}
-
-.alternative-text {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    gap: .3rem;
-    font-weight: var(--font-semibold);
-    a
-
-{
+    
+    #createAccount .alternative-text a {
     color: var(--Accent--);
+    }
+
+#accessDenied {
+    display: grid;
+    place-items: center;
+    gap: 1rem;
+  
 }
-}*/
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

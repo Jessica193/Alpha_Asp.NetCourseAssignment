@@ -18,7 +18,7 @@
 		<span>OR</span>
 	</div>
 
-	<form novalidate method="post" asp-action="CreateAccount" asp-controller="Auth">
+	<form novalidate method="post" asp-action="SignUp" asp-controller="Auth">
 
 		<div class="form-group">
 			<label asp-for="FirstName"></label>
@@ -45,30 +45,6 @@
 		</div>
 
 		<div class="form-group">
-			<label asp-for="StreetName"></label>
-			<div class="field-group">
-				<input asp-for="StreetName" />
-				<span asp-validation-for="StreetName"></span>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label asp-for="PostalCode"></label>
-			<div class="field-group">
-				<input asp-for="PostalCode" />
-				<span asp-validation-for="PostalCode"></span>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label asp-for="City"></label>
-			<div class="field-group">
-				<input asp-for="City" />
-				<span asp-validation-for="City"></span>
-			</div>
-		</div>
-
-		<div class="form-group">
 			<label asp-for="Password"></label>
 			<div class="field-group">
 				<input asp-for="Password" />
@@ -84,16 +60,21 @@
 			</div>
 		</div>
 
-
-		<div class="checkbox-group">
-			<div>
-				<input id="remember" type="checkbox" name="remember">
-				<label for="remember">Remember me</label>
-			</div>
-			<a href="#">Forgot Password?</a>
+		<div class="form-group terms-checkbox-group ">
+			<label class="terms-label">
+				<input asp-for="TermsAccepted" type="checkbox" class="terms-checkbox field-group" />
+				<span>I accept <a href="#" class="terms-link">Terms and Conditions</a></span>
+			</label>
+			<span asp-validation-for="TermsAccepted"></span>
 		</div>
-
 
 		<button class="btn btn-blue btn-submit" type="submit">Create account</button>
 	</form>
+
+
+	<div class="alternative-text">
+		<span>Already have an account?</span>
+		<a href="@Url.Action("SignIn", "Auth")">Login</a>
+	</div>
+	
 </section>

@@ -70,13 +70,16 @@ namespace WebbApp.Controllers
             return View(model);
         }
 
-     
-
 
         public new async Task<IActionResult> SignOut()
         {
             await _authService.SignOutAsync();
             return RedirectToAction("SignIn", "Auth");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

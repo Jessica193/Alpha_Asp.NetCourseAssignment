@@ -19,29 +19,14 @@ public class SignUpViewModel
     [Required(ErrorMessage = "Required")]
     [DataType(DataType.EmailAddress)]
     [Display(Name = "Email", Prompt = "Your email adress")]
-    [RegularExpression(@"^[^\s@]+@[^\s@]+\.[^\s@]+$", ErrorMessage = "Invalid email format")]
+    [RegularExpression(@"^[^\s@]+@[^\s@]+\.[^\s@]+$", ErrorMessage = "Invalid email")]
     public string Email { get; set; } = null!;
-
-    [Required(ErrorMessage = "Required")]
-    [DataType(DataType.Text)]
-    [Display(Name = "Street name", Prompt = "Your street name")]
-    public string StreetName { get; set; } = null!;
-
-    [Required(ErrorMessage = "Required")]
-    [DataType(DataType.Text)]
-    [Display(Name = "Postal Code", Prompt = "Your postal code")]
-    public string PostalCode { get; set; } = null!;
-
-    [Required(ErrorMessage = "Required")]
-    [DataType(DataType.Text)]
-    [Display(Name = "City", Prompt = "Your city")]
-    public string City { get; set; } = null!;
 
 
     [Required(ErrorMessage = "Required")]
     [DataType(DataType.Password)]
     [Display(Name = "Password", Prompt = "Enter your password")]
-    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", ErrorMessage = "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number.")]
+    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$", ErrorMessage = "Invalid password")]
     public string Password { get; set; } = null!;
 
 
@@ -52,6 +37,22 @@ public class SignUpViewModel
     public string ConfirmPassword { get; set; } = null!;
 
 
-    [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms")]
+    [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms and conditions")]
     public bool TermsAccepted { get; set; }
 }
+
+
+//[Required(ErrorMessage = "Required")]
+//    [DataType(DataType.Text)]
+//    [Display(Name = "Street name", Prompt = "Your street name")]
+//    public string StreetName { get; set; } = null!;
+
+//    [Required(ErrorMessage = "Required")]
+//    [DataType(DataType.Text)]
+//    [Display(Name = "Postal Code", Prompt = "Your postal code")]
+//    public string PostalCode { get; set; } = null!;
+
+//    [Required(ErrorMessage = "Required")]
+//    [DataType(DataType.Text)]
+//    [Display(Name = "City", Prompt = "Your city")]
+//    public string City { get; set; } = null!;

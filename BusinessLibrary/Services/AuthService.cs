@@ -53,5 +53,7 @@ public class AuthService(UserManager<MemberEntity> userManager, SignInManager<Me
         return new AuthResult { Succeeded = true, StatusCode = 200 };
     }
 
+ 
+
 
 }
