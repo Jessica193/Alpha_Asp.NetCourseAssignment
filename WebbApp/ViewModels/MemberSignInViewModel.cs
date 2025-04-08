@@ -2,7 +2,7 @@
 
 namespace DomainLibrary.Models;
 
-public class MemberLogInForm
+public class MemberSignInViewModel
 {
     [Required(ErrorMessage = "Required")]
     [DataType(DataType.EmailAddress)]

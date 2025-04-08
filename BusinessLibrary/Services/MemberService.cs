@@ -5,12 +5,15 @@ using DataLibrary.Repositories;
 using DomainLibrary.Extentions;
 using DomainLibrary.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Diagnostics;
 namespace BusinessLibrary.Services;
 
 public interface IMemberService
 {
     Task<MemberResult> AddMemberToRoleAsync(string memberId, string roleName);
+    Task<MemberResult> CreateMemberAsync(SignUpFormData form, string roleName = "User");
     Task<MemberResult> GetMemberssAsync();
+    Task<bool> MemberExists(string email);
 }
 
 public class MemberService(IMemberRepository memberRepository, UserManager<MemberEntity> userManager, RoleManager<IdentityRole> roleManager) : IMemberService
@@ -18,6 +21,37 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
     private readonly IMemberRepository _memberRepository = memberRepository;
     private readonly UserManager<MemberEntity> _userManager = userManager;
     private readonly RoleManager<IdentityRole> _roleManager = roleManager;
+
+
+    public async Task<MemberResult> CreateMemberAsync(SignUpFormData form, string roleName = "User")
+    {
+        if (form == null)
+            return new MemberResult{Succeeded = false, StatusCode = 400, Error = "Form is null"};
+
+        var existResult = await _memberRepository.ExistsAsync(x => x.Email == form.Email);
+        if (existResult.Succeeded)
+            return new MemberResult{Succeeded = false, StatusCode = 409, Error = "Member with same email already exists" };
+
+        try
+        {
+            var memberEntity = form.MapTo<MemberEntity>();
+            var result = await _userManager.CreateAsync(memberEntity, form.Password);
+            if (result.Succeeded)
+            {
+                var addToRoleResult = await AddMemberToRoleAsync(memberEntity.Id, roleName);
+                return result.Succeeded 
+                    ? new MemberResult { Succeeded = true, StatusCode = 201 }
+                    : new MemberResult { Succeeded = false, StatusCode = 201, Error = "Member created but not added to role" };
+            }
+            return new MemberResult { Succeeded = false, StatusCode = 500, Error = "Member not created" };
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return new MemberResult { Succeeded = false, StatusCode = 500, Error = ex.Message };
+        }
+      
+    }
 
     public async Task<MemberResult> GetMemberssAsync()
     {
@@ -64,4 +98,18 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
         };
 
     }
+
+
+    public async Task<bool> MemberExists(string email)
+    {
+        if (await _userManager.FindByEmailAsync(email) != null)
+        {
+            return true;
+        }
+
+        return false;
+
+    }
+
+
 }

@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace BusinessLibrary.Models;
+namespace DomainLibrary.Models;
 
-public class AddProjectsForm
+public class EditProjectsForm
 {
+    public int Id { get; set; }
+
+
     [Display(Name = "Project Image", Prompt = "Select an image")]
     [DataType(DataType.Upload)]
     public IFormFile? ProjectImage { get; set; }
@@ -16,6 +19,12 @@ public class AddProjectsForm
     public string ProjectName { get; set; } = null!;
 
 
+    [Display(Name = "Client Name", Prompt = "Enter client name")]
+    [DataType(DataType.Text)]
+    [Required(ErrorMessage = "Required")]
+    public string ClientName { get; set; } = null!;
+
+
     [Display(Name = "Description", Prompt = "Type something")]
     [DataType(DataType.Text)]
     [Required(ErrorMessage = "Required")]
@@ -25,25 +34,13 @@ public class AddProjectsForm
     [Display(Name = "Start Date")]
     [DataType(DataType.Date)]
     [Required(ErrorMessage = "Required")]
-    public DateOnly StartDate { get; set; }
+    public DateOnly StartDate { get; set; } 
 
 
     [Display(Name = "End Date")]
     [DataType(DataType.Date)]
     [Required(ErrorMessage = "Required")]
-    public DateOnly EndDate { get; set; }
-
-
-    [Display(Name = "Budget", Prompt = "0")]
-    [DataType(DataType.Text)]
-    [Required(ErrorMessage = "Required")]
-    public decimal Budget { get; set; }
-
-
-    [Display(Name = "Client Name", Prompt = "Select a client")]
-    [DataType(DataType.Text)]
-    [Required(ErrorMessage = "Required")]
-    public int ClientId { get; set; } 
+    public DateOnly EndDate { get; set; } 
 
 
     [Display(Name = "Members", Prompt = "Select a member")]
@@ -51,10 +48,11 @@ public class AddProjectsForm
     public int UserId { get; set; }
 
 
-    [Display(Name = "Status", Prompt = "Select a status")]
-    [Required(ErrorMessage = "You must select a status")]
-    public int StatusId { get; set; }
-
-
-
+    [Display(Name = "Budget", Prompt = "0")]
+    [DataType(DataType.Text)]
+    [Required(ErrorMessage = "Required")]
+    public string Budget { get; set; } = null!;
 }
+
+
+

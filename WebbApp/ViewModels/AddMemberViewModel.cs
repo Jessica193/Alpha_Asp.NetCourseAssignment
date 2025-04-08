@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace BusinessLibrary.Models;
+namespace DomainLibrary.Models;
 
-public class EditMemberForm
+public class AddMemberViewModel
 {
-    [Required]
-    public int Id { get; set; }
-
     [Display(Name = "Member Image", Prompt = "Select an image")]
     [DataType(DataType.Upload)]
     public IFormFile? MemberImage { get; set; }
@@ -30,12 +27,39 @@ public class EditMemberForm
     public string Email { get; set; } = null!;
 
 
-    [Display(Name = "Location", Prompt = "Enter location")]
-    [DataType(DataType.Text)]
-    public string? Location { get; set; }
-
-
     [Display(Name = "Phone Number", Prompt = "Enter phone number")]
     [DataType(DataType.PhoneNumber)]
     public string? Phone { get; set; }
+
+
+    [Display(Name = "Job Title", Prompt = "Enter job title")]
+    [DataType(DataType.Text)]
+    public string? JobTitle { get; set; }
+
+
+    [Display(Name = "Street Address", Prompt = "Enter street address")]
+    [DataType(DataType.Text)]
+    public string? StreetName { get; set; }
+
+
+    [Display(Name = "City", Prompt = "Enter city")]
+    [DataType(DataType.Text)]
+    public string City { get; set; } = null!;
+
+    [Display(Name = "Postal Code", Prompt = "Enter postal code")]
+    [DataType(DataType.Text)]
+    public string PostalCode { get; set; } = null!;
+
+
+    [Display(Name = "Date of Birth", Prompt = "Enter date of birth")]
+    [DataType(DataType.Date)]
+    public DateTime? DateOfBirth { get; set; }
 }
+
+
+ 
+
+ 
+  
+  
+  

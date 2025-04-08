@@ -1,23 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace BusinessLibrary.Models;
+namespace DomainLibrary.Models;
 
-public class AddMemberForm
+public class AddClientForm
 {
-    [Display(Name = "Member Image", Prompt = "Select an image")]
+    [Display(Name = "Client Image", Prompt = "Select an image")]
     [DataType(DataType.Upload)]
-    public IFormFile? MemberImage { get; set; }
+    public IFormFile? ClientImage { get; set; }
 
-    [Display(Name = "First name", Prompt = "Enter first name")]
+    [Display(Name = "Client Name", Prompt = "Enter client name")]
     [DataType(DataType.Text)]
     [Required(ErrorMessage = "Required")]
-    public string FirstName { get; set; } = null!;
-
-    [Display(Name = "Last name", Prompt = "Enter last name")]
-    [DataType(DataType.Text)]
-    [Required(ErrorMessage = "Required")]
-    public string LastName { get; set; } = null!;
+    public string ClientName { get; set; } = null!;
 
 
     [Display(Name = "Email Address", Prompt = "Enter email address")]
@@ -34,5 +29,6 @@ public class AddMemberForm
 
     [Display(Name = "Phone Number", Prompt = "Enter phone number")]
     [DataType(DataType.PhoneNumber)]
-    public string? Phone { get; set; }
+    public string? Phone { get; set; } 
+
 }

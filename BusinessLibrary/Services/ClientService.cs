@@ -14,7 +14,7 @@ public interface IClientService
 
 
 
-public class ClientService(IClientRepository clientRepository) : IClientService, IClientService
+public class ClientService(IClientRepository clientRepository) : IClientService
 {
     private readonly IClientRepository _clientRepository = clientRepository;
 

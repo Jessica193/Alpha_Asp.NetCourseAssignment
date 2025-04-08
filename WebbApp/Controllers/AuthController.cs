@@ -1,74 +1,82 @@
 ﻿using BusinessLibrary.Services;
+using DomainLibrary.Extentions;
 using DomainLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using WebbApp.ViewModels;
 
 namespace WebbApp.Controllers
 {
-    public class AuthController(AuthService authService) : Controller
+    public class AuthController(IAuthService authService) : Controller
     {
-        private readonly AuthService _authService = authService;
+        private readonly IAuthService _authService = authService;
 
-        public IActionResult CreateAccount()
+        public IActionResult SignUp()
         {
             ViewBag.ErrorMessage = "";
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAccount(CreateAccountForm form)
+        public async Task<IActionResult> SignUp(SignUpViewModel model)
         {
             ViewBag.ErrorMessage = "";
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var signUpFormData = model.MapTo<SignUpFormData>();
+            var result = await _authService.SignUpAsync(signUpFormData);
+            if (result.Succeeded)
             {
-                var result = await _authService.CreateAccountAsync(form);
-                if (result)
-                {
-                    return RedirectToAction("LogIn", "Auth");
-                }
+                return RedirectToAction("SignIn", "Auth");
             }
 
-            return View(form);
+            ViewBag.ErrorMessage = result.Error;
+            return View(model);
         }
 
 
-        public IActionResult LogIn(string returnUrl = "~/")
+        public IActionResult SignIn(string returnUrl = "~/")
         {
             ViewBag.ReturnUrl = returnUrl;
-           
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> LogIn(MemberLogInForm form, string returnUrl="~/")
+        public async Task<IActionResult> SignIn(MemberSignInViewModel model, string returnUrl="~/")
         {
             ViewBag.ErrorMessage = "";
-
-            if (ModelState.IsValid)
-            {
-                var result = await _authService.LogInAsync(form);
-                if (result)
-                {
-                    if (Url.IsLocalUrl(returnUrl))
-                    {
-                        return LocalRedirect(returnUrl);
-                    }
-                    return RedirectToAction("Dashboard", "Admin");
-                }
-            }
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.ErrorMessage = "Invalid email or password";
-            return View(form);
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ErrorMessage = "Invalid email or password";
+                return View(model);
+            }
+    
+            var memberSignInFormData = model.MapTo<MemberSignInFormData>();
+            var result = await _authService.SignInAsync(memberSignInFormData);
+            if (result.Succeeded)
+            {
+                if (Url.IsLocalUrl(returnUrl))
+                {
+                    return LocalRedirect(returnUrl);
+                }
+                return RedirectToAction("Dashboard", "Admin");
+            }
+
+            ViewBag.ErrorMessage = result.Error;
+            return View(model);
         }
 
      
 
 
-        public async Task<IActionResult> LogOut()
+        public new async Task<IActionResult> SignOut()
         {
-            await _authService.LogOutAsync();
-            return RedirectToAction("LogIn", "Auth");
+            await _authService.SignOutAsync();
+            return RedirectToAction("SignIn", "Auth");
         }
     }
 }

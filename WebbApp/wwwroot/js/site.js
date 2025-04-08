@@ -52,61 +52,59 @@
         });
     });
 
+
+
     // Handle form submission
-//    const forms = document.querySelectorAll('form');
-//    forms.forEach(form => {
-//        form.addEventListener('submit', async (e) => {
-//            e.preventDefault();
-         
-//            clearErrorMessages(form);
-          
-//            const formData = new FormData(form);
-          
-//            try {
-//                const res = await fetch(form.action, {
-//                    method: 'POST',
-//                    body: formData
-//                });
+    const modalForms = document.querySelectorAll('form[data-modal-form="true"]');
+    modalForms.forEach(form => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-//                console.log(res);  //TA BORT SEN
+            clearErrorMessages(form);
 
-//                if (res.ok) {
-//                    const modal = form.closest('.modal');
-//                    if (modal) 
-//                        modal.style.display = 'none';
+            const formData = new FormData(form);
 
-//                        window.location.reload();  
-//                }
-//                else if (res.status === 400) {
-//                    const data = await res.json();
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                });
 
-//                    console.log(data);  //TA BORT SEN
 
-//                    if (data.errors) {
-//                        Object.keys(data.errors).forEach(key => {
+                if (res.ok) {
+                    const modal = form.closest('.modal');
+                    if (modal)
+                        modal.style.display = 'none';
 
-//                            console.log(1);  //TA BORT SEN
+                        window.location.reload();
+                }
+                else if (res.status === 400) {
+                    const data = await res.json();
 
-//                            let input = form.querySelector(`[name="${key}"]`);
-//                            if (input) {
-//                                input.classList.add('input-validation-error');
-//                            }
+                    if (data.errors) {
+                        Object.keys(data.errors).forEach(key => {
+                            let input = form.querySelector(`[name="${key}"]`);
+                            if (input) {
+                                input.classList.add('input-validation-error');
+                            }
 
-//                            const span = form.querySelector(`[data-valmsg-for="${key}"]`);
-//                            if (span) {
-//                                span.innerText = data.errors[key].join('\n');
-//                                span.classList.add('field-validation-error');
-//                            }
-//                        });
-//                    }
-//                }
-//            }
-//            catch (e) {
-//                console.error('Error submitting the form', e);
-//            }
-//        });
-//    });
-//});
+                            const span = form.querySelector(`[data-valmsg-for="${key}"]`);
+                            if (span) {
+                                span.innerText = data.errors[key].join('\n');
+                                span.classList.add('field-validation-error');
+                            }
+                        });
+                    }
+                }
+            }
+            catch (e) {
+                console.error('Error submitting the form', e);
+            }
+        });
+    });
+});
+
+
 
 // Funktion för att rensa felmeddelanden
 function clearErrorMessages(form) {

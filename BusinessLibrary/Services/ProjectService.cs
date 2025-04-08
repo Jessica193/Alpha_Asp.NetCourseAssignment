@@ -6,21 +6,36 @@ using DomainLibrary.Models;
 
 namespace BusinessLibrary.Services;
 
-public class ProjectService(IProjectRepository projectRepository)
+public interface IProjectService
+{
+    Task<ProjectResult> CreateProjectAsync(AddProjectFormData form);
+    Task<ProjectResult<IEnumerable<Project>>> GetAllProjectsAsync();
+    Task<ProjectResult<Project>> GetOneProjectAsync(int id);
+}
+
+public class ProjectService(IProjectRepository projectRepository, IStatusService statusService) : IProjectService
 {
     private readonly IProjectRepository _projectRepository = projectRepository;
+    private readonly IStatusService _statusService = statusService;
 
 
-    public async Task<ProjectResult> CreateProjectAsync(AddProjectsForm form)
+    public async Task<ProjectResult> CreateProjectAsync(AddProjectFormData form)
     {
+        if (form == null)
+            return new ProjectResult { Succeeded = false, StatusCode = 400, Error = "Not all required fields are supplied" };
+
         var projectEntity = form.MapTo<ProjectEntity>();
+        var statusResult = await _statusService.GetOneStatusByIdAsync(form.StatusId); //Hans skrev bara 1 ist för form.StatusId. Varför?
+        var statusModel = statusResult.Result;
 
+        projectEntity.StatusId = statusModel!.Id;
 
+        var result = await _projectRepository.CreateAsync(projectEntity);
 
-
-        return new ProjectResult { Succeeded = true, StatusCode = 201 };
+        return result.Succeeded
+            ? new ProjectResult { Succeeded = true, StatusCode = 201 }
+            : new ProjectResult { Succeeded = false, StatusCode = result.StatusCode, Error = result.Error };
     }
-
 
 
     public async Task<ProjectResult<IEnumerable<Project>>> GetAllProjectsAsync()
@@ -35,7 +50,8 @@ public class ProjectService(IProjectRepository projectRepository)
                 include => include.Status
             );
 
-        return new ProjectResult<IEnumerable<Project>> {
+        return new ProjectResult<IEnumerable<Project>>
+        {
             Succeeded = true,
             StatusCode = 200,
             Result = response.Result

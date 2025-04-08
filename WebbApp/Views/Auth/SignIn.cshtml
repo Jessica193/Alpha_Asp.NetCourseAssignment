@@ -1,4 +1,4 @@
-﻿@model MemberLogInForm 
+﻿@model MemberSignInViewModel 
 @{
 	Layout = "_CleanLayout";
 	ViewData["Title"] = "Log In";
@@ -26,7 +26,7 @@
 	}
 
 	<form novalidate method="post" asp-action="LogIn" asp-controller="Auth">
-		<input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+		<input type="hidden" name="returnUrl" value="@ViewBag?.ReturnUrl" />
 		<div class="form-group">
 			<label asp-for="Email"></label>
 			<div class="field-group">

@@ -1,4 +1,4 @@
-﻿using BusinessLibrary.Models;
+﻿using DomainLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebbApp.Controllers;
@@ -6,7 +6,7 @@ namespace WebbApp.Controllers;
 public class MembersController : Controller
 {
     [HttpPost]
-    public IActionResult Add(AddMemberForm form)
+    public IActionResult Add(AddMemberViewModel form)
     {
         if (!ModelState.IsValid)
         {

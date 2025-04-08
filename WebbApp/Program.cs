@@ -25,8 +25,8 @@ builder.Services.AddIdentity<MemberEntity, IdentityRole>(options =>
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/auth/login";
-    options.LogoutPath = "/auth/logout";
+    options.LoginPath = "/auth/SignIn";
+    options.LogoutPath = "/auth/SignOut";
     options.SlidingExpiration = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
     options.Cookie.Expiration = TimeSpan.FromMinutes(30);
@@ -34,8 +34,13 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.IsEssential = true;
 });
 
-builder.Services.AddScoped<AuthService>();
-builder.Services.AddScoped<MemberService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<MemberAddressService>();
+builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IStatusService, StatusService>();
+builder.Services.AddScoped<IClientService, ClientService>();
+
 
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IMemberAddressRepository, MemberAddressRepository>(); 

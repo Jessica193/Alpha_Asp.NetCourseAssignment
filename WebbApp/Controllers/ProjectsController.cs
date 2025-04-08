@@ -1,4 +1,4 @@
-﻿using BusinessLibrary.Models;
+﻿using DomainLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebbApp.Controllers
@@ -6,7 +6,7 @@ namespace WebbApp.Controllers
     public class ProjectsController : Controller
     {
         [HttpPost]
-        public IActionResult Add(AddProjectsForm form)
+        public IActionResult Add(AddProjectViewModel form)
         {
             if (!ModelState.IsValid)
             {

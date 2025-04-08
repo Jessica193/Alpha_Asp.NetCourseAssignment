@@ -1,4 +1,4 @@
-﻿using BusinessLibrary.Models;
+﻿using DomainLibrary.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebbApp.ViewModels;
