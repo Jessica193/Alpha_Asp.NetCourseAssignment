@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Member>
+
+<section id="memberList">
+
+    @foreach (var member in Model)
+    {
+        <div class="member-card surface">
+            <div class="btn-edit-div">
+                <button class="btn-edit" type="button" data-modal="true" data-target="#editMemberModal"><i class="fa-solid fa-ellipsis"></i></button>
+            </div>
+            <div class="member-card-content">
+                <img src="~/@(member.ImagePath ?? "Images/Avatars/Avatar1.svg")" alt="Profile image">
+                <h4>@member.FirstName @member.LastName</h4>
+                <div class="jobtitle">
+                    <p>@member.JobTitle</p>
+                </div>
+                <p>@member.Email</p>
+                <p class="member-phone">@member.Phone</p>
+                <button class="btn-grey btn btn-message">Message</button>
+            </div>
+        </div>
+    }
+
+  
+</section>
+
+

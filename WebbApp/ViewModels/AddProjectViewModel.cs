@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace DomainLibrary.Models;
+namespace WebbApp.ViewModels;
 
 public class AddProjectViewModel
 {

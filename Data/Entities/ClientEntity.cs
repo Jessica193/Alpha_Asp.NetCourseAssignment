@@ -13,6 +13,6 @@ public class ClientEntity
     public string Email { get; set; } = null!;
     public string? Location { get; set; }
     public string? Phone { get; set; }
-    public virtual ICollection<ProjectEntity>? Projects { get; set; } = [];
+    public virtual ICollection<ProjectEntity> Projects { get; set; } = [];
 
 }

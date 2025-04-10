@@ -1,5 +1,6 @@
 ﻿using DomainLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
+using WebbApp.ViewModels;
 
 namespace WebbApp.Controllers
 {
@@ -38,7 +39,7 @@ namespace WebbApp.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(EditProjectsForm form)
+        public IActionResult Edit(EditProjectFormData form)
         {
             if (!ModelState.IsValid)
             {

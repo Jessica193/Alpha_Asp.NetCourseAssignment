@@ -6,12 +6,6 @@ using DomainLibrary.Models;
 
 namespace BusinessLibrary.Services;
 
-public interface IStatusService
-{
-    Task<StatusResult<StatusModel>> GetOneStatusByIdAsync(int id);
-    Task<StatusResult<StatusModel>> GetOneStatusByNameAsync(string statusName);
-    Task<StatusResult<IEnumerable<StatusModel>>> GetAllStatusesAsync();
-}
 
 public class StatusService(IStatusRepository statusRepository) : IStatusService
 {

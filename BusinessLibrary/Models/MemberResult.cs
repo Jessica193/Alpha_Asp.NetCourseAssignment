@@ -2,7 +2,11 @@
 
 namespace BusinessLibrary.Models;
 
+public class MemberResult<T> : ServiceResult
+{
+    public T? Result { get; set; }
+}
+
 public class MemberResult : ServiceResult
 {
-    public IEnumerable<Member>? Result { get; set; }
 }

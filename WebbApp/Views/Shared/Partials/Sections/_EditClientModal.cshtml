@@ -1,4 +1,4 @@
-﻿@model EditClientForm
+﻿@model EditClientViewModel
 
 <div id="editClientModal" class="modal">
 	<div class="modal-content">
@@ -10,11 +10,11 @@
 
 		<form novalidate method="post" asp-action="Edit" asp-controller="Clients" enctype="multipart/form-data" data-modal-form="true">
 
-			<input asp-for="Id" readonly type="hidden" />
+			<input asp-for="Id" readonly type="hidden" name="Id" value="@Model.Id" />
 
 			<div class="image-previewer circle ">
-				<img src="" class="image-preview" />
-				<input asp-for="ClientImage" class="d-none" accept="image/*" />
+				<img src="" class="image-preview" alt="Client preview" />
+				<input asp-for="ClientImage" type="file" class="d-none" accept="image/*" />
 			</div>
 
 			<div class="form-group">

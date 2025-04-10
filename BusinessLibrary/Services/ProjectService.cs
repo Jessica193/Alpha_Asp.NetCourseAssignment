@@ -1,17 +1,11 @@
-﻿using BusinessLibrary.Models;
+﻿using BusinessLibrary.Interfaces;
+using BusinessLibrary.Models;
 using DataLibrary.Entities;
 using DataLibrary.Interfaces;
 using DomainLibrary.Extentions;
 using DomainLibrary.Models;
 
 namespace BusinessLibrary.Services;
-
-public interface IProjectService
-{
-    Task<ProjectResult> CreateProjectAsync(AddProjectFormData form);
-    Task<ProjectResult<IEnumerable<Project>>> GetAllProjectsAsync();
-    Task<ProjectResult<Project>> GetOneProjectAsync(int id);
-}
 
 public class ProjectService(IProjectRepository projectRepository, IStatusService statusService) : IProjectService
 {

@@ -10,5 +10,5 @@ public class Client
     public string Email { get; set; } = null!;
     public string? Location { get; set; }
     public string? Phone { get; set; }
-    public virtual ICollection<Project>? Projects { get; set; } = [];
+    public virtual ICollection<Project> Projects { get; set; } = [];
 }

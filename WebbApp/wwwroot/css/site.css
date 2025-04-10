@@ -299,6 +299,16 @@ a {
     justify-content: center;
 }
 
+.btn-edit {
+/*    font-size: 2em;*/
+    border: none;
+    background-color: transparent;
+    color: var(--text-color-BodyDark--);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .btn-submit {
     width: 100%;
     margin-top: 2rem;
@@ -635,6 +645,9 @@ input[type="checkbox"] {
     left: 0;
     right: 0;
     bottom: 0;
+    overflow: auto; /* Viktigt! tillåter scroll om modal är större än viewport */
+    padding: 2rem; /* Lite luft runt modal-content */
+    z-index: 9999; /* Se till att modalen ligger över allt annat */
 }
 
     .modal .modal-content {
@@ -643,6 +656,9 @@ input[type="checkbox"] {
         box-shadow: 0 4px 4px 3px rgb(0, 0, 0, 0,10);
         padding: 2rem;
         width: 550px;
+        max-height: 90vh; /* Maxhöjd */
+        overflow-y: auto; /* Scroll inuti modalen om innehållet är för högt */
+        box-sizing: border-box;
     }
 
     .modal .modal-content .modal-header {
@@ -717,6 +733,65 @@ input[type="checkbox"] {
     gap: 1rem;
   
 }
+
+
+
+
+/*_MemberList Partial*/
+
+#memberList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+}
+
+    #memberList p {
+        margin: 0;
+    }
+
+    #memberList .member-card-content {
+        display: grid;
+        place-items: center;
+        justify-content: center;
+        gap: .5rem;
+    }
+
+    #memberList .member-card {
+        padding: 1rem;
+    }
+
+    #memberList .surface {
+        margin: 1rem;
+    }
+
+.btn-edit {
+    border: none;
+    background-color: transparent;
+    color: var(--text-color-BodyDark--);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-message {
+    width: 100%;
+}
+
+.btn-edit-div {
+    display: flex;
+    justify-content: right;
+}
+
+.jobtitle {
+    padding: .5rem 1rem;
+    border-radius: 0.9em;
+    background-color: #eeeded;
+    margin-bottom: .5rem;
+}
+
+#memberList .member-phone {
+    margin-bottom: .5rem;
+}
+
 
    
 

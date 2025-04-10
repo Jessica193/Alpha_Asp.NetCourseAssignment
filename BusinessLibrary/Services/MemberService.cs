@@ -1,4 +1,5 @@
-﻿using BusinessLibrary.Models;
+﻿using BusinessLibrary.Interfaces;
+using BusinessLibrary.Models;
 using DataLibrary.Entities;
 using DataLibrary.Interfaces;
 using DataLibrary.Repositories;
@@ -8,14 +9,6 @@ using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
 namespace BusinessLibrary.Services;
 
-public interface IMemberService
-{
-    Task<MemberResult> AddMemberToRoleAsync(string memberId, string roleName);
-    Task<MemberResult> CreateMemberAsync(SignUpFormData form, string roleName = "User");
-    Task<MemberResult> GetMemberssAsync();
-    Task<bool> MemberExists(string email);
-}
-
 public class MemberService(IMemberRepository memberRepository, UserManager<MemberEntity> userManager, RoleManager<IdentityRole> roleManager) : IMemberService
 {
     private readonly IMemberRepository _memberRepository = memberRepository;
@@ -23,7 +16,7 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
     private readonly RoleManager<IdentityRole> _roleManager = roleManager;
 
 
-    public async Task<MemberResult> CreateMemberAsync(SignUpFormData form, string roleName = "User")
+    public async Task<MemberResult> CreateMemberFromSignUpAsync(SignUpFormData form, string roleName = "User")
     {
         if (form == null)
             return new MemberResult{Succeeded = false, StatusCode = 400, Error = "Form is null"};
@@ -36,6 +29,7 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
         {
             var memberEntity = form.MapTo<MemberEntity>();
             memberEntity.UserName = form.Email;
+
             var result = await _userManager.CreateAsync(memberEntity, form.Password);
             if (result.Succeeded)
             {
@@ -54,10 +48,14 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
       
     }
 
-    public async Task<MemberResult> GetMemberssAsync()
+
+    
+
+
+    public async Task<MemberResult<IEnumerable<Member>>> GetMemberssAsync()
     {
         var result = await _memberRepository.GetAllAsync();
-        return result.MapTo<MemberResult>();
+        return result.MapTo<MemberResult<IEnumerable<Member>>>();
     }
 
     public async Task<MemberResult> AddMemberToRoleAsync(string memberId, string roleName)

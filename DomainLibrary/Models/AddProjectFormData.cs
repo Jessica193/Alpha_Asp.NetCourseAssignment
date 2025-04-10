@@ -7,6 +7,7 @@ public class AddProjectFormData
 {
   
     public IFormFile? ProjectImage { get; set; }
+    public string? ImagePath { get; set; }
     public string ProjectName { get; set; } = null!;
     public string Description { get; set; } = null!;
     public DateOnly StartDate { get; set; }

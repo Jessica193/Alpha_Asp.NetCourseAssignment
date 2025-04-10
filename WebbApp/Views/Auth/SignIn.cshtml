@@ -1,4 +1,5 @@
-﻿@model MemberSignInViewModel 
+﻿@using WebbApp.ViewModels
+@model MemberSignInViewModel 
 @{
 	Layout = "_CleanLayout";
 	ViewData["Title"] = "Log In";
@@ -56,7 +57,7 @@
 	</form>
 </section>
 
-
+@await Html.PartialAsync("Partials/Javascripts/_ValidationScriptsPartial");
 
 
 

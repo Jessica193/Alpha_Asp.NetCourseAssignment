@@ -1,12 +1,19 @@
-﻿using DomainLibrary.Models;
+﻿using BusinessLibrary.Interfaces;
+using BusinessLibrary.Services;
+using DomainLibrary.Extentions;
+using DomainLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
+using WebbApp.ViewModels;
 
 namespace WebbApp.Controllers;
 
-public class MembersController : Controller
+public class MembersController(IWebHostEnvironment env, IMemberService memberService) : Controller
 {
+    private readonly IWebHostEnvironment _env = env;
+    private readonly IMemberService _memberService = memberService;
+
     [HttpPost]
-    public IActionResult Add(AddMemberViewModel form)
+    public async Task<IActionResult> Add(AddMemberViewModel model)
     {
         if (!ModelState.IsValid)
         {
@@ -21,24 +28,39 @@ public class MembersController : Controller
             return BadRequest(new { success = false, errors });
         }
 
-        // Send data to clientservice
-        return Ok(new { success = true });
+        string? imagePath = null;
+        if (model.MemberImage != null && model.MemberImage.Length > 0)
+        {
+            // Cretaing a folder 
+            var uploadsFolder = Path.Combine(_env.WebRootPath, "Uploads", "Members");
+            Directory.CreateDirectory(uploadsFolder);
 
-        //Tex:
-        //var result = await _clientService.AddClientAsync(form);
-        //if (result.Success)
-        //{
-        //    return Ok(new { success = true });
-        //}
-        //else
-        //{
-        //    return Problem("An error occurred while adding the client.", statusCode: 500);
-        //}
+            // Creating a file path for the uploaded file
+            var fileName = $"{Guid.NewGuid()}_{Path.GetExtension(model.MemberImage.FileName)}";
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            //FileSteram is used to read and write bytes to a file
+            using (var fileStream = new FileStream(filePath, FileMode.Create)) //A new empty file is created
+            {
+                await model.MemberImage.CopyToAsync(fileStream); //The uploaded file is copied to the empty file
+            }//The stream closes and the file is saved
+
+            imagePath = Path.Combine("Uploads", "Members", fileName).Replace("\\", "/");  //ex: "Uploads/Clients/GuidNr.jpg"
+        }
+
+        var addMemberFormData = model.MapTo<AddMemberFormData>();
+        addMemberFormData.ImagePath = imagePath;
+        var result = await _memberService.CreateMemberFromAdminAsync(addMemberFormData);
+
+        if (result.Succeeded)
+            return Ok(new { success = true });
+
+        return Problem("Unable to add client", statusCode: 500);
     }
 
 
     [HttpPost]
-    public IActionResult Edit(EditMemberForm form)
+    public IActionResult Edit(EditMemberViewModel form)
     {
         if (!ModelState.IsValid)
         {
@@ -54,18 +76,9 @@ public class MembersController : Controller
         }
 
 
-        // Send data to clientservice
+   
         return Ok(new { success = true });
 
-        //Tex:
-        //var result = await _clientService.UpdateClientAsync(form);
-        //if (result.Success)
-        //{
-        //    return Ok(new { success = true });
-        //}
-        //else
-        //{
-        //    return Problem("An error occurred while adding the client.", statusCode: 500);
-        //}
+    
     }
 }

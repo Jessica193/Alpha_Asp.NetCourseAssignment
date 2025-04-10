@@ -36,8 +36,8 @@ public class SignUpViewModel
     [Compare("Password", ErrorMessage = "Passwords do not match")]
     public string ConfirmPassword { get; set; } = null!;
 
-
-    [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms and conditions")]
+    [Required(ErrorMessage = "Required")]
+    [Range(typeof(bool), "true", "true", ErrorMessage = "Required")]
     public bool TermsAccepted { get; set; }
 }
 

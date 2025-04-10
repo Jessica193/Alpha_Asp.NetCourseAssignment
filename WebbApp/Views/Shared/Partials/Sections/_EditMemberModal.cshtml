@@ -1,4 +1,5 @@
-﻿@model EditMemberForm
+﻿@using WebbApp.ViewModels
+@model EditMemberViewModel
 
 <div id="editMemberModal" class="modal">
 	<div class="modal-content">
@@ -42,14 +43,6 @@
 			</div>
 
 			<div class="form-group">
-				<label asp-for="Location"></label>
-				<div class="field-group">
-					<input asp-for="Location" />
-					<span asp-validation-for="Location"></span>
-				</div>
-			</div>
-
-			<div class="form-group">
 				<label asp-for="Phone"></label>
 				<div class="field-group">
 					<input asp-for="Phone" />
@@ -57,8 +50,48 @@
 				</div>
 			</div>
 
+			<div class="form-group">
+				<label asp-for="JobTitle"></label>
+				<div class="field-group">
+					<input asp-for="JobTitle" />
+					<span asp-validation-for="JobTitle"></span>
+				</div>
+			</div>
 
-			<button class="btn btn-blue btn-submit" type="submit">Create</button>
+			<div class="form-group">
+				<label asp-for="StreetName"></label>
+				<div class="field-group">
+					<input asp-for="StreetName" />
+					<span asp-validation-for="StreetName"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="PostalCode"></label>
+				<div class="field-group">
+					<input asp-for="PostalCode" />
+					<span asp-validation-for="PostalCode"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="City"></label>
+				<div class="field-group">
+					<input asp-for="City" />
+					<span asp-validation-for="City"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="DateOfBirth"></label>
+				<div class="field-group">
+					<input asp-for="DateOfBirth" placeholder="Enter date of birth" />
+					<span asp-validation-for="DateOfBirth"></span>
+				</div>
+			</div>
+
+
+			<button class="btn btn-blue btn-submit" type="submit">Edit</button>
 		</form>
 
 	</div>

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace DomainLibrary.Models;
+namespace WebbApp.ViewModels;
 
 public class AddMemberViewModel
 {
@@ -20,14 +20,14 @@ public class AddMemberViewModel
     public string LastName { get; set; } = null!;
 
 
-    [Display(Name = "Email Address", Prompt = "Enter email address")]
+    [Display(Name = "Email", Prompt = "Enter email address")]
     [DataType(DataType.EmailAddress)]
     [Required(ErrorMessage = "Required")]
     [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Invalid email address")]
     public string Email { get; set; } = null!;
 
 
-    [Display(Name = "Phone Number", Prompt = "Enter phone number")]
+    [Display(Name = "Phone", Prompt = "Enter phone number")]
     [DataType(DataType.PhoneNumber)]
     public string? Phone { get; set; }
 
@@ -44,11 +44,11 @@ public class AddMemberViewModel
 
     [Display(Name = "City", Prompt = "Enter city")]
     [DataType(DataType.Text)]
-    public string City { get; set; } = null!;
+    public string? City { get; set; } 
 
     [Display(Name = "Postal Code", Prompt = "Enter postal code")]
     [DataType(DataType.Text)]
-    public string PostalCode { get; set; } = null!;
+    public string? PostalCode { get; set; } 
 
 
     [Display(Name = "Date of Birth", Prompt = "Enter date of birth")]

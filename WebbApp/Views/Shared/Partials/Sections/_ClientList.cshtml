@@ -1,9 +1,11 @@
-﻿<div class="client-list surface">
+﻿@model IEnumerable<Client>
+
+<div class="client-list surface">
 	<table>
 		<thead>
 			<tr>
 				<th class="client-check"><input type="checkbox" /></th>
-				<th class="client-info">Client Name</th>
+				<th class="client-info">Client name</th>
 				<th class="client-location">Location</th>
 				<th class="client-phone">Phone</th>
 				<th class="client-date">Date</th>
@@ -12,25 +14,28 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td class="client-check"><input type="checkbox" /></td>
-				<td class="client-info">
-					<img class="client-image" src="~/Images/Avatars/Avatar1.svg" alt="profile images" />
-					<div class="client-name">EPN sverige AB</div>
-					<div class="client-email">info@domain.com</div>
-				</td>
-				<td class="client-location">Stockholm, Sverige</td>
-				<td class="client-phone">070 00 00 000</td>
-				<td class="client-date">25-03-15</td>
-				<td class="client-status">
-					<div class="badge bg-success">
-						active
-					</div>
-				</td>
-				<td class="client-actions">
-					<i class="fa-regular fa-ellipsis" data-modal="true" data-target="#editClientModal"></i>
-				</td>
-			</tr>
+			@foreach (var client in Model)
+			{
+				<tr>
+					<td class="client-check"><input type="checkbox" /></td>
+					<td class="client-info">
+						<img class="client-image" src="~/@(client.ImagePath ?? "Images/Avatars/Avatar1.svg")" alt="profile image" />
+						<div class="client-name">@client.ClientName</div>
+						<div class="client-email">@client.Email</div>
+					</td>
+					<td class="client-location">@client.Location</td>
+					<td class="client-phone">@client.Phone</td>
+					<td class="client-date">@DateTime.Now.ToString("yy-MM-dd")</td>  <!-- Byt ut till "CreatedDate" -->
+					<td class="client-status">
+						<div class="badge bg-success">
+							active
+						</div>
+					</td>
+					<td class="client-actions">
+						<i class="fa-regular fa-ellipsis" data-modal="true" data-target="#editClientModal" data-client-id="@client.Id"></i>
+					</td>
+				</tr>
+			}
 		</tbody>
 	</table>
 </div>

@@ -11,13 +11,13 @@ public class MemberAddressEntity
     public string UserId { get; set; } = null!;
 
     [ProtectedPersonalData]
-    public string StreetName { get; set; } = null!;
+    public string? StreetName { get; set; } = null!;
 
     [ProtectedPersonalData]
-    public string City { get; set; } = null!;
+    public string? City { get; set; } = null!;
 
     [ProtectedPersonalData]
-    public string PostalCode { get; set; } = null!;
+    public string? PostalCode { get; set; } = null!;
 
     public virtual ICollection<MemberEntity> Members { get; set; } = [];
 

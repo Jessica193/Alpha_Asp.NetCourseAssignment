@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DomainLibrary.Models;
+namespace WebbApp.ViewModels;
 
 public class MemberSignInViewModel
 {

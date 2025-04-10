@@ -1,17 +1,11 @@
-﻿using BusinessLibrary.Models;
+﻿using BusinessLibrary.Interfaces;
+using BusinessLibrary.Models;
 using DataLibrary.Entities;
 using DomainLibrary.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLibrary.Services;
-
-public interface IAuthService
-{
-    Task<AuthResult> SignUpAsync(SignUpFormData form);
-    Task<AuthResult> SignInAsync(MemberSignInFormData form);
-    Task<AuthResult> SignOutAsync();
-}
 
 public class AuthService(UserManager<MemberEntity> userManager, SignInManager<MemberEntity> signInManager, IMemberService memberService) : IAuthService
 {
@@ -39,7 +33,7 @@ public class AuthService(UserManager<MemberEntity> userManager, SignInManager<Me
         if (form == null)
             return new AuthResult { Succeeded = false, StatusCode = 400, Error = "Not all required fileds are supplied" };
 
-        var result = await _memberService.CreateMemberAsync(form);
+        var result = await _memberService.CreateMemberFromSignUpAsync(form);
         return result.Succeeded
             ? new AuthResult { Succeeded = true, StatusCode = 201 }
             : new AuthResult { Succeeded = false, StatusCode = result.StatusCode, Error = result.Error };

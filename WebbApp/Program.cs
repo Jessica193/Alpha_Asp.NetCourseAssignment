@@ -1,3 +1,4 @@
+using BusinessLibrary.Interfaces;
 using BusinessLibrary.Services;
 using DataLibrary.Contexts;
 using DataLibrary.Entities;
@@ -5,6 +6,7 @@ using DataLibrary.Interfaces;
 using DataLibrary.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WebbApp.ViewModels;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
@@ -35,7 +37,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<MemberAddressService>();
+builder.Services.AddScoped<IMemberAddressService, MemberAddressService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IStatusService, StatusService>();
@@ -47,6 +49,8 @@ builder.Services.AddScoped<IMemberAddressRepository, MemberAddressRepository>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IStatusRepository, StatusRepository>();
+
+builder.Services.AddScoped<ClientsViewModel>();
 
 
 

@@ -1,9 +1,12 @@
-﻿@{
+﻿@model MembersViewModel
+@{
 	ViewData["Title"] = "Team Members";
 }
 
-<partial name="Partials/Sections/_AddMemberModal" />
-<partial name="Partials/Sections/_EditMemberModal" />
+@await Html.PartialAsync("Partials/Sections/_AddMemberModal", Model.AddMemberForm)
+@await Html.PartialAsync("Partials/Sections/_EditMemberModal", Model.EditMemberForm)
+
+
 
 <section id="team-members">
 	<header class="portal-layout-main-header">
@@ -11,3 +14,5 @@
 		<button type="button" data-modal="true" data-target="#addMemberModal" class="btn btn-blue btn-add"><i class="fa-solid fa-plus"></i>Add Member</button>
 	</header>
 </section>
+
+@await Html.PartialAsync("Partials/Sections/_MemberList", Model.Members)
