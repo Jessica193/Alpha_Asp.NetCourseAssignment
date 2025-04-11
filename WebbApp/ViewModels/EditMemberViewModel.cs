@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebbApp.ViewModels;
@@ -61,4 +62,6 @@ public class EditMemberViewModel
     [Display(Name = "Role")]
     [Required(ErrorMessage = "Please select a role")]
     public string SelectedRole { get; set; } = null!;
+
+    public IEnumerable<SelectListItem> AvailableRoles { get; set; } = [];
 }

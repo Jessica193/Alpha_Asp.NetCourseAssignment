@@ -61,6 +61,8 @@ public class AddMemberViewModel
     [Required(ErrorMessage = "Please select a role")]
     public string SelectedRole { get; set; } = null!;
 
+
+    public IEnumerable<SelectListItem> AvailableRoles { get; set; } = [];
 }
 
 

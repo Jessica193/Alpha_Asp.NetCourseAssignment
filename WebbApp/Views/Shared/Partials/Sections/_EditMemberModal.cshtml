@@ -1,5 +1,5 @@
 ﻿@using WebbApp.ViewModels
-@model MembersViewModel
+@model EditMemberViewModel
 
 <div id="editMemberModal" class="modal">
 	<div class="modal-content">
@@ -11,91 +11,91 @@
 
 		<form novalidate method="post" asp-action="Edit" asp-controller="Members" enctype="multipart/form-data" data-modal-form="true">
 
-			<input asp-for="EditMemberForm.Id" readonly type="hidden" />
+			<input asp-for="Id" readonly type="hidden" />
 
 			<div class="image-previewer circle ">
 				<img src="" class="image-preview" />
-				<input asp-for="EditMemberForm.MemberImage" class="d-none" accept="image/*" />
+				<input asp-for="MemberImage" class="d-none" accept="image/*" />
 			</div>
 
 			<div class="form-group">
-				<label asp-for="EditMemberForm.FirstName"></label>
+				<label asp-for="FirstName"></label>
 				<div class="field-group">
-					<input asp-for="EditMemberForm.FirstName" />
-					<span asp-validation-for="EditMemberForm.FirstName"></span>
+					<input asp-for="FirstName" />
+					<span asp-validation-for="FirstName"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="EditMemberForm.LastName"></label>
+				<label asp-for="LastName"></label>
 				<div class="field-group">
-					<input asp-for="EditMemberForm.LastName" />
-					<span asp-validation-for="EditMemberForm.LastName"></span>
+					<input asp-for="LastName" />
+					<span asp-validation-for="LastName"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="EditMemberForm.Email"></label>
+				<label asp-for="Email"></label>
 				<div class="field-group">
-					<input asp-for="EditMemberForm.Email" />
-					<span asp-validation-for="EditMemberForm.Email"></span>
+					<input asp-for="Email" />
+					<span asp-validation-for="Email"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="EditMemberForm.Phone"></label>
+				<label asp-for="Phone"></label>
 				<div class="field-group">
-					<input asp-for="EditMemberForm.Phone" />
-					<span asp-validation-for="EditMemberForm.Phone"></span>
+					<input asp-for="Phone" />
+					<span asp-validation-for="Phone"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="EditMemberForm.JobTitle"></label>
+				<label asp-for="JobTitle"></label>
 				<div class="field-group">
-					<input asp-for="EditMemberForm.JobTitle" />
-					<span asp-validation-for="EditMemberForm.JobTitle"></span>
+					<input asp-for="JobTitle" />
+					<span asp-validation-for="JobTitle"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="EditMemberForm.StreetName"></label>
+				<label asp-for="StreetName"></label>
 				<div class="field-group">
-					<input asp-for="EditMemberForm.StreetName" />
-					<span asp-validation-for="EditMemberForm.StreetName"></span>
+					<input asp-for="StreetName" />
+					<span asp-validation-for="StreetName"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="EditMemberForm.PostalCode"></label>
+				<label asp-for="PostalCode"></label>
 				<div class="field-group">
-					<input asp-for="EditMemberForm.PostalCode" />
-					<span asp-validation-for="EditMemberForm.PostalCode"></span>
+					<input asp-for="PostalCode" />
+					<span asp-validation-for="PostalCode"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="EditMemberForm.City"></label>
+				<label asp-for="City"></label>
 				<div class="field-group">
-					<input asp-for="EditMemberForm.City" />
-					<span asp-validation-for="EditMemberForm.City"></span>
+					<input asp-for="City" />
+					<span asp-validation-for="City"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="EditMemberForm.DateOfBirth"></label>
+				<label asp-for="DateOfBirth"></label>
 				<div class="field-group">
-					<input asp-for="EditMemberForm.DateOfBirth" placeholder="Enter date of birth" />
-					<span asp-validation-for="EditMemberForm.DateOfBirth"></span>
+					<input asp-for="DateOfBirth" placeholder="Enter date of birth" />
+					<span asp-validation-for="DateOfBirth"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="EditMemberForm.SelectedRole"></label>
-				<select asp-for="EditMemberForm.SelectedRole" asp-items="Model.AvailableRoles">
+				<label asp-for="SelectedRole"></label>
+				<select asp-for="SelectedRole" asp-items="Model.AvailableRoles">
 					<option disabled selected value="">-- Select role --</option>
 				</select>
-				<span asp-validation-for="EditMemberForm.SelectedRole"></span>
+				<span asp-validation-for="SelectedRole"></span>
 			</div>
 
 

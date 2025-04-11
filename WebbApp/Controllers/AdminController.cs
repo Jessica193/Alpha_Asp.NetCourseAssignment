@@ -1,6 +1,5 @@
 ﻿using BusinessLibrary.Interfaces;
 using BusinessLibrary.Models;
-using BusinessLibrary.Services;
 using DomainLibrary.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -26,9 +25,20 @@ namespace WebbApp.Controllers
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Members()
         {
-            var viewModel = new MembersViewModel();
-            viewModel.Members = await PopulateMembersAsync();
-            viewModel.AvailableRoles = await PopulateAvailableRolesAsync();
+            var availableRoles = await PopulateAvailableRolesAsync();
+
+            var addMemberViewModel = new AddMemberViewModel
+            {
+                AvailableRoles = availableRoles
+            };
+
+            var viewModel = new MembersViewModel
+            {
+                Members = await PopulateMembersAsync(),
+                AddMemberForm = addMemberViewModel,
+                AvailableRoles = availableRoles
+            };
+
             return View(viewModel);
         }
 
@@ -39,22 +49,18 @@ namespace WebbApp.Controllers
             await viewModel.PopulateClientsAsync();
             return View(viewModel);
         }
+
         public IActionResult Projects()
         {
             return View();
         }
-
 
         public async Task<IEnumerable<Member>> PopulateMembersAsync()
         {
             var result = await _memberService.GetMembersAsync();
             if (result.Succeeded)
             {
-                if (result.Result == null)
-                    return [];
-
-                var members = result.Result.ToList();
-                return members;
+                return result.Result?.ToList() ?? [];
             }
             return [];
         }
@@ -62,16 +68,11 @@ namespace WebbApp.Controllers
         public async Task<IEnumerable<SelectListItem>> PopulateAvailableRolesAsync()
         {
             var roles = await _roleManager.Roles.ToListAsync();
-            var availableRoles = roles.Select(r => new SelectListItem
+            return roles.Select(r => new SelectListItem
             {
                 Value = r.Name,
                 Text = r.Name
             });
-            return availableRoles;
         }
-
     }
-
-    }
-
-
+}

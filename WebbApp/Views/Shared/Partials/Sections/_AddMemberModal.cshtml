@@ -1,4 +1,4 @@
-﻿@model MembersViewModel
+﻿@model AddMemberViewModel
 
 <div id="addMemberModal" class="modal">
 	<div class="modal-content">
@@ -12,88 +12,88 @@
 
 			<div class="image-previewer circle ">
 				<img src="" class="image-preview" />
-				<input asp-for="AddMemberForm.MemberImage" class="d-none" accept="image/*" />
+				<input asp-for="MemberImage" class="d-none" accept="image/*" />
 			</div>
 
 			<div class="form-group">
-				<label asp-for="AddMemberForm.FirstName"></label>
+				<label asp-for="FirstName"></label>
 				<div class="field-group">
-					<input asp-for="AddMemberForm.FirstName" />
-					<span asp-validation-for="AddMemberForm.FirstName"></span>
+					<input asp-for="FirstName" />
+					<span asp-validation-for="FirstName"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="AddMemberForm.LastName"></label>
+				<label asp-for="LastName"></label>
 				<div class="field-group">
-					<input asp-for="AddMemberForm.LastName" />
-					<span asp-validation-for="AddMemberForm.LastName"></span>
+					<input asp-for="LastName" />
+					<span asp-validation-for="LastName"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="AddMemberForm.Email"></label>
+				<label asp-for="Email"></label>
 				<div class="field-group">
-					<input asp-for="AddMemberForm.Email" />
-					<span asp-validation-for="AddMemberForm.Email"></span>
+					<input asp-for="Email" />
+					<span asp-validation-for="Email"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="AddMemberForm.Phone"></label>
+				<label asp-for="Phone"></label>
 				<div class="field-group">
-					<input asp-for="AddMemberForm.Phone" />
-					<span asp-validation-for="AddMemberForm.Phone"></span>
+					<input asp-for="Phone" />
+					<span asp-validation-for="Phone"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="AddMemberForm.JobTitle"></label>
+				<label asp-for="JobTitle"></label>
 				<div class="field-group">
-					<input asp-for="AddMemberForm.JobTitle" />
-					<span asp-validation-for="AddMemberForm.JobTitle"></span>
+					<input asp-for="JobTitle" />
+					<span asp-validation-for="JobTitle"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="AddMemberForm.StreetName"></label>
+				<label asp-for="StreetName"></label>
 				<div class="field-group">
-					<input asp-for="AddMemberForm.StreetName" />
-					<span asp-validation-for="AddMemberForm.StreetName"></span>
+					<input asp-for="StreetName" />
+					<span asp-validation-for="StreetName"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="AddMemberForm.PostalCode"></label>
+				<label asp-for="PostalCode"></label>
 				<div class="field-group">
-					<input asp-for="AddMemberForm.PostalCode" />
-					<span asp-validation-for="AddMemberForm.PostalCode"></span>
+					<input asp-for="PostalCode" />
+					<span asp-validation-for="PostalCode"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="AddMemberForm.City"></label>
+				<label asp-for="City"></label>
 				<div class="field-group">
-					<input asp-for="AddMemberForm.City" />
-					<span asp-validation-for="AddMemberForm.City"></span>
+					<input asp-for="City" />
+					<span asp-validation-for="City"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="AddMemberForm.DateOfBirth"></label>
+				<label asp-for="DateOfBirth"></label>
 				<div class="field-group">
-					<input asp-for="AddMemberForm.DateOfBirth" placeholder="Enter date of birth" />
-					<span asp-validation-for="AddMemberForm.DateOfBirth"></span>
+					<input asp-for="DateOfBirth" placeholder="Enter date of birth" />
+					<span asp-validation-for="DateOfBirth"></span>
 				</div>
 			</div>
 
 
 			<div class="form-group">
-				<label asp-for="AddMemberForm.SelectedRole"></label>
-				<select asp-for="AddMemberForm.SelectedRole" asp-items="Model.AvailableRoles">
+				<label asp-for="SelectedRole"></label>
+				<select asp-for="SelectedRole" asp-items="Model.AvailableRoles">
 					<option disabled selected value="">-- Select role --</option>
 				</select>
-				<span asp-validation-for="AddMemberForm.SelectedRole"></span>
+				<span asp-validation-for="SelectedRole"></span>
 			</div>
 
 

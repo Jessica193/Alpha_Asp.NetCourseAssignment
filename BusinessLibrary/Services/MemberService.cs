@@ -93,6 +93,20 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
     }
 
 
+    public async Task<MemberResult<Member>> GetMemberByIdAsync(string id)
+    {
+        var result = await _memberRepository.GetOneAsync(x => x.Id == id);
+
+        return new MemberResult<Member>
+        {
+            Succeeded = result.Succeeded,
+            StatusCode = result.StatusCode,
+            Error = result.Error,
+            Result = result.Result
+        };
+    }
+
+
     public async Task<MemberResult> AddMemberToRoleAsync(string memberId, string roleName)
     {
         var role = await _roleManager.RoleExistsAsync(roleName);
