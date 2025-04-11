@@ -13,6 +13,9 @@ public class EditMemberViewModel
     [DataType(DataType.Upload)]
     public IFormFile? MemberImage { get; set; }
 
+    [Display(Name = "Current Image")]
+    public string? ImagePath { get; set; }
+
     [Display(Name = "First name", Prompt = "Enter first name")]
     [DataType(DataType.Text)]
     [Required(ErrorMessage = "Required")]

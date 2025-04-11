@@ -13,6 +13,9 @@ public class Member
     public string? Phone { get; set; }
     public string? JobTitle { get; set; }
     public DateTime? DateOfBirth { get; set; }
+
+    [NotMapped]
+    public string SelectedRole { get; set; } = null!;
     public virtual MemberAddress? Address { get; set; }
     public virtual ICollection<Project> Projects { get; set; } = [];
 }

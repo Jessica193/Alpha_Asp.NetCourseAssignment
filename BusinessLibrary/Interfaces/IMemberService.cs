@@ -10,4 +10,5 @@ public interface IMemberService
     Task<MemberResult<Member>> GetMemberByIdAsync(string id);
     Task<MemberResult<IEnumerable<Member>>> GetMembersAsync();
     Task<bool> MemberExists(string email);
+    Task<MemberResult> EditMemberAsync(Member member);
 }

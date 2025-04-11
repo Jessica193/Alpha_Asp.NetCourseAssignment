@@ -106,6 +106,72 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
         };
     }
 
+    public async Task<MemberResult> EditMemberAsync(Member member)
+    {
+        if (member == null)
+            return new MemberResult { Succeeded = false, StatusCode = 400, Error = "Member is null" };
+
+        try
+        {
+            var entityResult = await _memberRepository.GetOneEntityAsync(x => x.Id == member.Id);
+
+            if (!entityResult.Succeeded || entityResult.Result == null)
+                return new MemberResult { Succeeded = false, StatusCode = 404, Error = "Member not found" };
+
+            var existingEntity = entityResult.Result;
+
+            existingEntity.FirstName = member.FirstName;
+            existingEntity.LastName = member.LastName;
+            existingEntity.Email = member.Email;
+            existingEntity.PhoneNumber = member.Phone;
+            existingEntity.JobTitle = member.JobTitle;
+            existingEntity.DateOfBirth = member.DateOfBirth;
+            if (member.ImagePath != null)
+                existingEntity.ImagePath = member.ImagePath;
+
+            // Adress (om du hanterar det)
+            if (existingEntity.Address != null)
+            {
+                existingEntity.Address.StreetName = member.Address?.StreetName;
+                existingEntity.Address.City = member.Address?.City;
+                existingEntity.Address.PostalCode = member.Address?.PostalCode;
+            }
+            else if (member.Address != null)
+            {
+                existingEntity.Address = new MemberAddressEntity
+                {
+                    UserId = member.Id,
+                    StreetName = member.Address.StreetName,
+                    City = member.Address.City,
+                    PostalCode = member.Address.PostalCode
+                };
+            }
+
+            // 3. Uppdatera användarens roll
+            if (!string.IsNullOrWhiteSpace(member.SelectedRole))
+            {
+                var currentRoles = await _userManager.GetRolesAsync(existingEntity);
+
+                if (currentRoles.Any())
+                    await _userManager.RemoveFromRolesAsync(existingEntity, currentRoles);
+
+                await _userManager.AddToRoleAsync(existingEntity, member.SelectedRole);
+            }
+
+
+            var updateResult = await _userManager.UpdateAsync(existingEntity);
+            return updateResult.Succeeded
+                ? new MemberResult { Succeeded = true, StatusCode = 200 }
+                : new MemberResult { Succeeded = false, StatusCode = 500, Error = "Member not updated" };
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return new MemberResult { Succeeded = false, StatusCode = 500, Error = ex.Message };
+        }
+    }
+
 
     public async Task<MemberResult> AddMemberToRoleAsync(string memberId, string roleName)
     {
