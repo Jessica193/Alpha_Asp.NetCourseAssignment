@@ -5,7 +5,8 @@ namespace BusinessLibrary.Interfaces;
 public interface IMemberService
 {
     Task<MemberResult> AddMemberToRoleAsync(string memberId, string roleName);
+    Task<MemberResult> CreateMemberFromAdminAsync(AddMemberFormData form);
     Task<MemberResult> CreateMemberFromSignUpAsync(SignUpFormData form, string roleName = "User");
-    Task<MemberResult> GetMemberssAsync();
+    Task<MemberResult<IEnumerable<Member>>> GetMembersAsync();
     Task<bool> MemberExists(string email);
 }

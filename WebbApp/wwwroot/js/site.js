@@ -94,6 +94,9 @@
     modalForms.forEach(form => {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            console.log("Member form submit triggered!"); //Ta bort sen
+
+
 
             clearErrorMessages(form);
 
@@ -108,8 +111,10 @@
 
                 if (res.ok) {
                     const modal = form.closest('.modal');
-                    if (modal)
+                    if (modal) {
                         modal.style.display = 'none';
+                    }
+                        
 
                         window.location.reload();
                 }

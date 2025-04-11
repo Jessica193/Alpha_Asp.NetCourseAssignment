@@ -34,7 +34,7 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
             if (result.Succeeded)
             {
                 var addToRoleResult = await AddMemberToRoleAsync(memberEntity.Id, roleName);
-                return result.Succeeded 
+                return addToRoleResult.Succeeded 
                     ? new MemberResult { Succeeded = true, StatusCode = 201 }
                     : new MemberResult { Succeeded = false, StatusCode = 201, Error = "Member created but not added to role" };
             }
@@ -48,15 +48,50 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
       
     }
 
+    public async Task<MemberResult> CreateMemberFromAdminAsync(AddMemberFormData form)
+    {
+        if (form == null)
+            return new MemberResult { Succeeded = false, StatusCode = 400, Error = "Form is null" };
 
-    
+        var existResult = await _memberRepository.ExistsAsync(x => x.Email == form.Email);
+        if (existResult.Succeeded)
+            return new MemberResult { Succeeded = false, StatusCode = 409, Error = "Member with same email already exists" };
+
+        try
+        {
+            var memberEntity = form.MapTo<MemberEntity>();
+            memberEntity.UserName = form.Email;
+
+            var result = await _userManager.CreateAsync(memberEntity, "Bytmig123!");
+            if (!result.Succeeded)
+                return new MemberResult { Succeeded = false, StatusCode = 500, Error = "Member not created" };
+
+            var memberAdress = form.MapTo<MemberAddressEntity>();
+            memberAdress.UserId = memberEntity.Id;
+            memberEntity.Address = memberAdress;
+            var updateResult = await _userManager.UpdateAsync(memberEntity);
+            if (!updateResult.Succeeded)
+                return new MemberResult { Succeeded = false, StatusCode = 500, Error = "Member created but no address added" };
+
+            var roleResult = await AddMemberToRoleAsync(memberEntity.Id, form.SelectedRole);
+            return roleResult.Succeeded
+                ? new MemberResult { Succeeded = true, StatusCode = 201 }
+                : new MemberResult { Succeeded = false, StatusCode = 201, Error = "Member created but no role added" };
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return new MemberResult { Succeeded = false, StatusCode = 500, Error = ex.Message };
+        }
+    }
 
 
-    public async Task<MemberResult<IEnumerable<Member>>> GetMemberssAsync()
+    public async Task<MemberResult<IEnumerable<Member>>> GetMembersAsync()
     {
         var result = await _memberRepository.GetAllAsync();
         return result.MapTo<MemberResult<IEnumerable<Member>>>();
     }
+
 
     public async Task<MemberResult> AddMemberToRoleAsync(string memberId, string roleName)
     {
@@ -86,6 +121,5 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
         return false;
 
     }
-
 
 }

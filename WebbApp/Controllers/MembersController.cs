@@ -3,6 +3,7 @@ using BusinessLibrary.Services;
 using DomainLibrary.Extentions;
 using DomainLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using WebbApp.ViewModels;
 
 namespace WebbApp.Controllers;
@@ -13,19 +14,30 @@ public class MembersController(IWebHostEnvironment env, IMemberService memberSer
     private readonly IMemberService _memberService = memberService;
 
     [HttpPost]
-    public async Task<IActionResult> Add(AddMemberViewModel model)
+    public async Task<IActionResult> Add(AddMemberViewModel model) // ska jag ta emot denna eller MembersViewModel?
     {
         if (!ModelState.IsValid)
         {
-            var errors = ModelState
+            var errorDict = ModelState
                 .Where(x => x.Value?.Errors.Count > 0)
                 .ToDictionary(
                     kvp => kvp.Key,
-                    kvp => kvp.Value?.Errors.Select(e => e.ErrorMessage)
-                    .ToArray()
+                    kvp => kvp.Value?.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
 
-            return BadRequest(new { success = false, errors });
+            //Ta bort sen
+            foreach (var kvp in ModelState)
+            {
+                var key = kvp.Key;
+                var modelErrors = kvp.Value?.Errors;
+                if (modelErrors?.Count > 0)
+                {
+                    Debug.WriteLine($"ModelState error for {key}: {string.Join(", ", modelErrors.Select(e => e.ErrorMessage))}");
+                }
+            }
+            //Slut
+
+            return BadRequest(new { success = false, errors = errorDict });
         }
 
         string? imagePath = null;

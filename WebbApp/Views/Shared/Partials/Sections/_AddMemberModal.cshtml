@@ -1,5 +1,4 @@
-﻿@using WebbApp.ViewModels
-@model AddMemberViewModel
+﻿@model MembersViewModel
 
 <div id="addMemberModal" class="modal">
 	<div class="modal-content">
@@ -13,80 +12,90 @@
 
 			<div class="image-previewer circle ">
 				<img src="" class="image-preview" />
-				<input asp-for="MemberImage" class="d-none" accept="image/*" />
+				<input asp-for="AddMemberForm.MemberImage" class="d-none" accept="image/*" />
 			</div>
 
 			<div class="form-group">
-				<label asp-for="FirstName"></label>
+				<label asp-for="AddMemberForm.FirstName"></label>
 				<div class="field-group">
-					<input asp-for="FirstName" />
-					<span asp-validation-for="FirstName"></span>
+					<input asp-for="AddMemberForm.FirstName" />
+					<span asp-validation-for="AddMemberForm.FirstName"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="LastName"></label>
+				<label asp-for="AddMemberForm.LastName"></label>
 				<div class="field-group">
-					<input asp-for="LastName" />
-					<span asp-validation-for="LastName"></span>
+					<input asp-for="AddMemberForm.LastName" />
+					<span asp-validation-for="AddMemberForm.LastName"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="Email"></label>
+				<label asp-for="AddMemberForm.Email"></label>
 				<div class="field-group">
-					<input asp-for="Email" />
-					<span asp-validation-for="Email"></span>
+					<input asp-for="AddMemberForm.Email" />
+					<span asp-validation-for="AddMemberForm.Email"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="Phone"></label>
+				<label asp-for="AddMemberForm.Phone"></label>
 				<div class="field-group">
-					<input asp-for="Phone" />
-					<span asp-validation-for="Phone"></span>
+					<input asp-for="AddMemberForm.Phone" />
+					<span asp-validation-for="AddMemberForm.Phone"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="JobTitle"></label>
+				<label asp-for="AddMemberForm.JobTitle"></label>
 				<div class="field-group">
-					<input asp-for="JobTitle" />
-					<span asp-validation-for="JobTitle"></span>
+					<input asp-for="AddMemberForm.JobTitle" />
+					<span asp-validation-for="AddMemberForm.JobTitle"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="StreetName"></label>
+				<label asp-for="AddMemberForm.StreetName"></label>
 				<div class="field-group">
-					<input asp-for="StreetName" />
-					<span asp-validation-for="StreetName"></span>
+					<input asp-for="AddMemberForm.StreetName" />
+					<span asp-validation-for="AddMemberForm.StreetName"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="PostalCode"></label>
+				<label asp-for="AddMemberForm.PostalCode"></label>
 				<div class="field-group">
-					<input asp-for="PostalCode" />
-					<span asp-validation-for="PostalCode"></span>
+					<input asp-for="AddMemberForm.PostalCode" />
+					<span asp-validation-for="AddMemberForm.PostalCode"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="City"></label>
+				<label asp-for="AddMemberForm.City"></label>
 				<div class="field-group">
-					<input asp-for="City" />
-					<span asp-validation-for="City"></span>
+					<input asp-for="AddMemberForm.City" />
+					<span asp-validation-for="AddMemberForm.City"></span>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label asp-for="DateOfBirth"></label>
+				<label asp-for="AddMemberForm.DateOfBirth"></label>
 				<div class="field-group">
-					<input asp-for="DateOfBirth" placeholder="Enter date of birth"/>
-					<span asp-validation-for="DateOfBirth"></span>
+					<input asp-for="AddMemberForm.DateOfBirth" placeholder="Enter date of birth" />
+					<span asp-validation-for="AddMemberForm.DateOfBirth"></span>
 				</div>
 			</div>
+
+
+			<div class="form-group">
+				<label asp-for="AddMemberForm.SelectedRole"></label>
+				<select asp-for="AddMemberForm.SelectedRole" asp-items="Model.AvailableRoles">
+					<option disabled selected value="">-- Select role --</option>
+				</select>
+				<span asp-validation-for="AddMemberForm.SelectedRole"></span>
+			</div>
+
 
 
 			<button class="btn btn-blue btn-submit" type="submit">Create</button>
@@ -95,13 +104,4 @@
 	</div>
 </div>
 
-
-
-
-
-
-
-	[Display(Name = "Date of Birth", Prompt = "Enter date of birth")]
-	[DataType(DataType.Date)]
-	public DateTime? DateOfBirth { get; set; }
 

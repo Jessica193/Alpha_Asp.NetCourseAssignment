@@ -6,6 +6,7 @@ using DataLibrary.Interfaces;
 using DataLibrary.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WebbApp.Seeders;
 using WebbApp.ViewModels;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,6 +52,7 @@ builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IStatusRepository, StatusRepository>();
 
 builder.Services.AddScoped<ClientsViewModel>();
+builder.Services.AddScoped<MembersViewModel>();
 
 
 
@@ -76,5 +78,22 @@ app.MapControllerRoute(
     pattern: "{controller=Admin}/{action=Dashboard}/{id?}")
     .WithStaticAssets();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        await DataInitializer.SeedAsync(services);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("An error occurred while initializing roles");
+        Console.WriteLine(ex.Message);
+    }
+}
+
 
 app.Run();
+
+

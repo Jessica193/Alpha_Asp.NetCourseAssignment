@@ -16,5 +16,7 @@ public class AddMemberFormData
     public string? City { get; set; } = null!;
     public string? PostalCode { get; set; } = null!;
     public DateTime? DateOfBirth { get; set; }
+    public string SelectedRole { get; set; } = null!;
+
 
 }

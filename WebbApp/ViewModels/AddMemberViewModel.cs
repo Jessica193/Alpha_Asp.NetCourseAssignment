@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebbApp.ViewModels;
@@ -54,12 +55,17 @@ public class AddMemberViewModel
     [Display(Name = "Date of Birth", Prompt = "Enter date of birth")]
     [DataType(DataType.Date)]
     public DateTime? DateOfBirth { get; set; }
+
+
+    [Display(Name = "Role")]
+    [Required(ErrorMessage = "Please select a role")]
+    public string SelectedRole { get; set; } = null!;
+
 }
 
 
- 
 
- 
-  
-  
-  
+
+
+
+
