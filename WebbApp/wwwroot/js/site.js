@@ -22,7 +22,7 @@
 
             try {
                 const response = await fetch(`/Clients/GetClient?id=${clientId}`);
-                if (!response.ok) throw new Error('Klienten kunde inte hämtas');
+                if (!response.ok) throw new Error('Client could not be fetched');
 
                 const data = await response.json();
 
@@ -41,7 +41,7 @@
                 }
 
             } catch (error) {
-                console.error('Fel vid hämtning av klientdata:', error);
+                console.error('Error collecting client data:', error);
             }
         });
     });
@@ -56,7 +56,7 @@
 
             try {
                 const response = await fetch(`/Members/GetMember?id=${memberId}`);
-                if (!response.ok) throw new Error('Medlemmen kunde inte hämtas');
+                if (!response.ok) throw new Error('Member could not be fetched');
 
                 const data = await response.json();
                 console.log("Member-data till editmodal:", data);
@@ -66,15 +66,15 @@
                 form.querySelector('[name="FirstName"]').value = data.firstName;
                 form.querySelector('[name="LastName"]').value = data.lastName;
                 form.querySelector('[name="Email"]').value = data.email;
-                form.querySelector('[name="Phone"]').value = data.phone ?? '';
+                form.querySelector('[name="PhoneNumber"]').value = data.phoneNumber ?? '';
                 form.querySelector('[name="JobTitle"]').value = data.jobTitle ?? '';
-                form.querySelector('[name="StreetName"]').value = data.streetName ?? '';
-                form.querySelector('[name="PostalCode"]').value = data.postalCode ?? '';
-                form.querySelector('[name="City"]').value = data.city ?? '';
+                form.querySelector('[name="StreetName"]').value = data.address?.streetName ?? '';
+                form.querySelector('[name="PostalCode"]').value = data.address?.postalCode ?? '';
+                form.querySelector('[name="City"]').value = data.address?.city ?? '';
                 form.querySelector('[name="DateOfBirth"]').value = data.dateOfBirth?.split("T")[0] ?? '';
                 form.querySelector('[name="SelectedRole"]').value = data.selectedRole ?? '';
 
-                // Visa befintlig bild
+                 //Visa befintlig bild
                 const imagePreview = form.querySelector('.image-preview');
                 if (imagePreview && data.imagePath) {
                     imagePreview.src = `/${data.imagePath}`;
@@ -82,14 +82,10 @@
                 }
 
             } catch (error) {
-                console.error('Fel vid hämtning av medlemsdata:', error);
+                console.error('Error collecting member data:', error);
             }
         });
     });
-
-
-
-
 
 
     // Close modal
@@ -140,8 +136,6 @@
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             console.log("Member form submit triggered!"); //Ta bort sen
-
-
 
             clearErrorMessages(form);
 

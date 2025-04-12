@@ -30,7 +30,7 @@ public class AddMemberViewModel
 
     [Display(Name = "Phone", Prompt = "Enter phone number")]
     [DataType(DataType.PhoneNumber)]
-    public string? Phone { get; set; }
+    public string? PhoneNumber { get; set; }
 
 
     [Display(Name = "Job Title", Prompt = "Enter job title")]

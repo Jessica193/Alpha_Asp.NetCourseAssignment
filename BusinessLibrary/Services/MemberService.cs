@@ -95,14 +95,24 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
 
     public async Task<MemberResult<Member>> GetMemberByIdAsync(string id)
     {
-        var result = await _memberRepository.GetOneAsync(x => x.Id == id);
+        var result = await _memberRepository.GetOneAsync(x => x.Id == id, x => x.Address!);
+        if (!result.Succeeded || result.Result == null)
+            return new MemberResult<Member> { Succeeded = false, StatusCode = result.StatusCode, Error = result.Error };
+
+        var member = result.Result;
+
+        var entity = await _userManager.FindByIdAsync(id);
+        if (entity == null)
+            return new MemberResult<Member> { Succeeded = false, StatusCode = 404, Error = "Member entity not found" };
+
+        var roles = await _userManager.GetRolesAsync(entity);
+        member.SelectedRole = roles.FirstOrDefault() ?? "";
 
         return new MemberResult<Member>
         {
-            Succeeded = result.Succeeded,
-            StatusCode = result.StatusCode,
-            Error = result.Error,
-            Result = result.Result
+            Succeeded = true,
+            StatusCode = 200,
+            Result = member
         };
     }
 
@@ -123,9 +133,13 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
             existingEntity.FirstName = member.FirstName;
             existingEntity.LastName = member.LastName;
             existingEntity.Email = member.Email;
-            existingEntity.PhoneNumber = member.Phone;
+            existingEntity.PhoneNumber = member.PhoneNumber;
             existingEntity.JobTitle = member.JobTitle;
             existingEntity.DateOfBirth = member.DateOfBirth;
+            existingEntity.NormalizedEmail = member.Email.ToUpper();
+            existingEntity.NormalizedUserName = member.Email.ToUpper();
+            existingEntity.UserName = member.Email;
+            
             if (member.ImagePath != null)
                 existingEntity.ImagePath = member.ImagePath;
 

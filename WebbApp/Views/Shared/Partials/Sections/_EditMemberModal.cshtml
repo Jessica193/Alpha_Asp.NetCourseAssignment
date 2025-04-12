@@ -14,8 +14,8 @@
 			<input asp-for="Id" readonly type="hidden" />
 
 			<div class="image-previewer circle ">
-				<img src="" class="image-preview" />
-				<input asp-for="MemberImage" class="d-none" accept="image/*" />
+				<img src="" class="image-preview" alt="member image"/>
+				<input asp-for="MemberImage" type="file" class="d-none" accept="image/*" />
 			</div>
 
 			<div class="form-group">
@@ -43,10 +43,10 @@
 			</div>
 
 			<div class="form-group">
-				<label asp-for="Phone"></label>
+				<label asp-for="PhoneNumber"></label>
 				<div class="field-group">
-					<input asp-for="Phone" />
-					<span asp-validation-for="Phone"></span>
+					<input asp-for="PhoneNumber" />
+					<span asp-validation-for="PhoneNumber"></span>
 				</div>
 			</div>
 

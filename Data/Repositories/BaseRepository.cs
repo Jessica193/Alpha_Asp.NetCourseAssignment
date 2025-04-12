@@ -1,7 +1,9 @@
 ﻿using DataLibrary.Contexts;
+using DataLibrary.Entities;
 using DataLibrary.Interfaces;
 using DataLibrary.Models;
 using DomainLibrary.Extentions;
+using DomainLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -99,7 +101,23 @@ public abstract class BaseRepository<TEntity, TModel>(DataContext context) : IBa
             return new RepositoryResult<TModel> { Succeeded = false, StatusCode = 404, Error = "Entity not found" };
 
         var result = entity.MapTo<TModel>();
-            return new RepositoryResult<TModel> { Succeeded = true, StatusCode = 200, Result = result };
+
+        // Specialmappning för MemberEntity -> Member (inklusive Address). Genererad av chatGPT4o
+        if (typeof(TModel) == typeof(Member) && entity is MemberEntity memberEntity && result is Member member)
+        {
+            if (memberEntity.Address != null)
+            {
+                member.Address = new MemberAddress
+                {
+                    StreetName = memberEntity.Address.StreetName,
+                    PostalCode = memberEntity.Address.PostalCode,
+                    City = memberEntity.Address.City
+                };
+            }
+        }
+
+
+        return new RepositoryResult<TModel> { Succeeded = true, StatusCode = 200, Result = result };
     }
 
 

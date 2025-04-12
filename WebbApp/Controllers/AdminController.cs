@@ -32,11 +32,17 @@ namespace WebbApp.Controllers
                 AvailableRoles = availableRoles
             };
 
+            var editMemberViewModel = new EditMemberViewModel
+            {
+                AvailableRoles = availableRoles
+            };
+
             var viewModel = new MembersViewModel
             {
                 Members = await PopulateMembersAsync(),
                 AddMemberForm = addMemberViewModel,
-                AvailableRoles = availableRoles
+                AvailableRoles = availableRoles,
+                EditMemberForm = editMemberViewModel
             };
 
             return View(viewModel);

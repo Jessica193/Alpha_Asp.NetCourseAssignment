@@ -41,18 +41,3 @@ public class SignUpViewModel
     public bool TermsAccepted { get; set; }
 }
 
-
-//[Required(ErrorMessage = "Required")]
-//    [DataType(DataType.Text)]
-//    [Display(Name = "Street name", Prompt = "Your street name")]
-//    public string StreetName { get; set; } = null!;
-
-//    [Required(ErrorMessage = "Required")]
-//    [DataType(DataType.Text)]
-//    [Display(Name = "Postal Code", Prompt = "Your postal code")]
-//    public string PostalCode { get; set; } = null!;
-
-//    [Required(ErrorMessage = "Required")]
-//    [DataType(DataType.Text)]
-//    [Display(Name = "City", Prompt = "Your city")]
-//    public string City { get; set; } = null!;

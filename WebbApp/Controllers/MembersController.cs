@@ -1,5 +1,6 @@
 ﻿using BusinessLibrary.Interfaces;
 using BusinessLibrary.Services;
+using DataLibrary.Entities;
 using DomainLibrary.Extentions;
 using DomainLibrary.Models;
 using Microsoft.AspNetCore.Identity;
@@ -11,11 +12,11 @@ using WebbApp.ViewModels;
 
 namespace WebbApp.Controllers;
 
-public class MembersController(IWebHostEnvironment env, IMemberService memberService, UserManager<Member> userManager, RoleManager<IdentityRole> roleManager) : Controller
+public class MembersController(IWebHostEnvironment env, IMemberService memberService, UserManager<MemberEntity> userManager, RoleManager<IdentityRole> roleManager) : Controller
 {
     private readonly IWebHostEnvironment _env = env;
     private readonly IMemberService _memberService = memberService;
-    private readonly UserManager<Member> _userManager = userManager;
+    private readonly UserManager<MemberEntity> _userManager = userManager;
     private readonly RoleManager<IdentityRole> _roleManager = roleManager;
 
     [HttpPost]
@@ -121,10 +122,14 @@ public class MembersController(IWebHostEnvironment env, IMemberService memberSer
         member.FirstName = model.FirstName;
         member.LastName = model.LastName;
         member.Email = model.Email;
-        member.Phone = model.Phone;
+        member.PhoneNumber = model.PhoneNumber;
         member.JobTitle = model.JobTitle;
         member.DateOfBirth = model.DateOfBirth;
         member.SelectedRole = model.SelectedRole;
+        //member.Address!.StreetName = model.StreetName;
+        //member.Address!.PostalCode = model.PostalCode;
+        //member.Address!.City = model.City;
+
         if (imagePath != null)
             member.ImagePath = imagePath;
 
@@ -144,55 +149,9 @@ public class MembersController(IWebHostEnvironment env, IMemberService memberSer
         var result = await _memberService.GetMemberByIdAsync(id);
         if (!result.Succeeded || result.Result == null)
             return NotFound();
+        var member = result.Result;
 
-        return Ok(result.Result); // skickar JSON till JavaScript
+        return Ok(member); // skickar JSON till JavaScript
     }
-
-
-
-
-
-    //public async Task<IActionResult> GetMember(string id)
-    //{
-    //    var result = await _memberService.GetMemberByIdAsync(id);
-    //    if (!result.Succeeded || result.Result == null)
-    //        return NotFound();
-
-    //    var member = result.Result;
-    //    var viewModel = await BuildEditMemberViewModel(member);
-
-    //    return Ok(viewModel);
-    //}
-
-    //private async Task<EditMemberViewModel> BuildEditMemberViewModel(Member member)
-    //{
-    //    // Hämta tillgängliga roller från databasen
-    //    var roles = await _roleManager.Roles.ToListAsync();
-
-    //    // Hämta den roll användaren har just nu
-    //    var currentRoles = await _userManager.GetRolesAsync(member);
-    //    var selectedRole = currentRoles.FirstOrDefault() ?? "";
-
-    //    return new EditMemberViewModel
-    //    {
-    //        Id = member.Id,
-    //        FirstName = member.FirstName,
-    //        LastName = member.LastName,
-    //        Email = member.Email,
-    //        Phone = member.Phone,
-    //        JobTitle = member.JobTitle,
-    //        DateOfBirth = member.DateOfBirth,
-    //        StreetName = member.Address?.StreetName,
-    //        City = member.Address?.City,
-    //        PostalCode = member.Address?.PostalCode,
-    //        ImagePath = member.ImagePath,
-    //        SelectedRole = selectedRole,
-    //        AvailableRoles = roles.Select(r => new SelectListItem
-    //        {
-    //            Value = r.Name,
-    //            Text = r.Name
-    //        })
-    //    };
-    //}
 
 }

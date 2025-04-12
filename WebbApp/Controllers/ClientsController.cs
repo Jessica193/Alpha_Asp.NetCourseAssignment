@@ -124,7 +124,7 @@ public class ClientsController(IClientService clientService, IWebHostEnvironment
     //Genererad av chatgpt för att hämta en klient i samband med att få förifyllt formulär vid editering
     public async Task<IActionResult> GetClient(int id)
     {
-        var result = await _clientService.GetClientByIdAsync(id); // ClientResult<Client>
+        var result = await _clientService.GetClientByIdAsync(id); 
         if (!result.Succeeded || result.Result == null)
             return NotFound();
 
