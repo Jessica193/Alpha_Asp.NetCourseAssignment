@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections;
+using System.Reflection;
 
 namespace DomainLibrary.Extentions;
 
@@ -12,7 +14,7 @@ public static class MappingExtensions
         var sourceProperties = source.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
         var destinationProperties = destination.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-        foreach ( var destinationProperty in destinationProperties)
+        foreach (var destinationProperty in destinationProperties)
         {
             var sourceProperty = sourceProperties.FirstOrDefault(p => p.Name == destinationProperty.Name && p.PropertyType == destinationProperty.PropertyType);
             if (sourceProperty != null && destinationProperty.CanWrite)
@@ -25,3 +27,4 @@ public static class MappingExtensions
         return destination;
     }
 }
+

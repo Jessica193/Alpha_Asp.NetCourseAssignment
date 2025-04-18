@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Project>
+
+
+
+@if (Model != null && Model.Any())
+{
+    <section id="projectList">
+
+        @foreach (var project in Model)
+        {
+            <div class="project-card surface">
+                <div class="project-card-top">
+                    <img src="~/@(project.ImagePath ?? "Images/ProjectImage.svg")" alt="project image">
+                    <div class="project-card-header-info">
+                        <h6>@project.ProjectName</h6>
+                        <p>@project.Client.ClientName</p>
+                    </div>
+                    <button class="btn-edit"><i class="fa-solid fa-ellipsis" type="button" data-modal="true" data-target="#editProjectModal" data-project-id="@project.Id"></i></button>
+                </div>
+
+                <p class="project-card-description">@project.Description</p>
+
+                <div class="project-card-bottom">
+
+                    @{
+                        var daysLeft = (project.EndDate.Date - DateTime.Today).Days;
+                        string timeLeftText;
+
+                        if (daysLeft < 0)
+                        {
+                            timeLeftText = "Project ended";
+                        }
+                        else if (daysLeft == 0)
+                        {
+                            timeLeftText = "Last day!";
+                        }
+                        else if (daysLeft == 1)
+                        {
+                            timeLeftText = "1 day left";
+                        }
+                        else if (daysLeft < 7)
+                        {
+                            timeLeftText = $"{daysLeft} days left";
+                        }
+                        else if (daysLeft < 30)
+                        {
+                            var weeks = daysLeft / 7;
+                            timeLeftText = weeks == 1 ? "1 week left" : $"{weeks} weeks left";
+                        }
+                        else
+                        {
+                            var months = daysLeft / 30;
+                            timeLeftText = months == 1 ? "1 month left" : $"{months} months left";
+                        }
+                    }
+
+                    <div class="time-left">
+                        <i class="fa-solid fa-clock"></i>
+                        <p>@timeLeftText</p>
+                    </div>
+
+                    <div class="project-card-member-list">
+                        @foreach (var member in project.Members)
+                        {
+                            var imagePath = !string.IsNullOrEmpty(member.ImagePath)
+                            ? member.ImagePath
+                            : "Images/Avatars/Avatar1.svg";
+
+                            <img src="~/@imagePath" alt="@member.FirstName @member.LastName" />
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+    </section>
+}
+else
+{
+    <p>No projects available.</p>
+}
+
+

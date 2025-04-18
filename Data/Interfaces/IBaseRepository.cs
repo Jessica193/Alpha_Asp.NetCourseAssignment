@@ -13,5 +13,6 @@ namespace DataLibrary.Interfaces
         Task<RepositoryResult<IEnumerable<TSelect>>> GetAllAsync<TSelect>(Expression<Func<TEntity, TSelect>> selector, bool orderByDescendning = false, Expression<Func<TEntity, object>>? sortBy = null, Expression<Func<TEntity, bool>>? where = null, params Expression<Func<TEntity, object>>[] includes);
         Task<RepositoryResult<TModel>> GetOneAsync(Expression<Func<TEntity, bool>>? where = null, params Expression<Func<TEntity, object>>[] includes);
         Task<RepositoryResult<TEntity>> GetOneEntityAsync(Expression<Func<TEntity, bool>>? where = null, params Expression<Func<TEntity, object>>[] includes);
+        Task<RepositoryResult<IEnumerable<TEntity>>> GetAllEntitiesAsync(bool orderByDescendning = false, Expression<Func<TEntity, object>>? sortBy = null, Expression<Func<TEntity, bool>>? where = null, params Expression<Func<TEntity, object>>[] includes);
     }
 }

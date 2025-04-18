@@ -18,9 +18,6 @@ public class ProjectEntity
     public DateTime EndDate { get; set; }
     public decimal? Budget { get; set; }
     public DateTime Created { get; set; } = DateTime.Now;
-
-    [ForeignKey("UserId")]
-    public string UserId { get; set; } = null!;
     public virtual ICollection<MemberEntity> Members { get; set; } = [];
 
     [ForeignKey("ClientId")]

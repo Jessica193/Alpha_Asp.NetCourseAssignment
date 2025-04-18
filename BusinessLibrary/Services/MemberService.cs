@@ -88,7 +88,10 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
 
     public async Task<MemberResult<IEnumerable<Member>>> GetMembersAsync()
     {
-        var result = await _memberRepository.GetAllAsync();
+        var result = await _memberRepository.GetAllAsync(
+            includes: include => include.Address!
+        );
+
         return result.MapTo<MemberResult<IEnumerable<Member>>>();
     }
 

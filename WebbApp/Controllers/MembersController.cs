@@ -20,7 +20,7 @@ public class MembersController(IWebHostEnvironment env, IMemberService memberSer
     private readonly RoleManager<IdentityRole> _roleManager = roleManager;
 
     [HttpPost]
-    public async Task<IActionResult> Add(AddMemberViewModel model) // ska jag ta emot denna eller MembersViewModel?
+    public async Task<IActionResult> Add(AddMemberViewModel model) 
     {
         if (!ModelState.IsValid)
         {
@@ -30,18 +30,6 @@ public class MembersController(IWebHostEnvironment env, IMemberService memberSer
                     kvp => kvp.Key,
                     kvp => kvp.Value?.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
-
-            //Ta bort sen
-            foreach (var kvp in ModelState)
-            {
-                var key = kvp.Key;
-                var modelErrors = kvp.Value?.Errors;
-                if (modelErrors?.Count > 0)
-                {
-                    Debug.WriteLine($"ModelState error for {key}: {string.Join(", ", modelErrors.Select(e => e.ErrorMessage))}");
-                }
-            }
-            //Slut
 
             return BadRequest(new { success = false, errors = errorDict });
         }
@@ -126,9 +114,7 @@ public class MembersController(IWebHostEnvironment env, IMemberService memberSer
         member.JobTitle = model.JobTitle;
         member.DateOfBirth = model.DateOfBirth;
         member.SelectedRole = model.SelectedRole;
-        //member.Address!.StreetName = model.StreetName;
-        //member.Address!.PostalCode = model.PostalCode;
-        //member.Address!.City = model.City;
+     
 
         if (imagePath != null)
             member.ImagePath = imagePath;

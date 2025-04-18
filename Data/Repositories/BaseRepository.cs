@@ -59,6 +59,30 @@ public abstract class BaseRepository<TEntity, TModel>(DataContext context) : IBa
        
     }
 
+    public virtual async Task<RepositoryResult<IEnumerable<TEntity>>> GetAllEntitiesAsync(
+          bool orderByDescendning = false,
+          Expression<Func<TEntity, object>>? sortBy = null,
+          Expression<Func<TEntity, bool>>? where = null,
+          params Expression<Func<TEntity, object>>[] includes)
+    {
+
+        IQueryable<TEntity> query = _dbSet;
+
+        if (where != null)
+            query = query.Where(where);
+
+        if (includes != null && includes.Length != 0)
+            foreach (var include in includes)
+                query = query.Include(include);
+
+        if (sortBy != null)
+            query = orderByDescendning ? query.OrderByDescending(sortBy) : query.OrderBy(sortBy);
+
+        var entities = await query.ToListAsync();
+        return new RepositoryResult<IEnumerable<TEntity>> { Succeeded = true, StatusCode = 200, Result = entities };
+
+    }
+
 
     public virtual async Task<RepositoryResult<IEnumerable<TSelect>>> GetAllAsync<TSelect>(
         Expression<Func<TEntity, TSelect>> selector,
@@ -96,7 +120,10 @@ public abstract class BaseRepository<TEntity, TModel>(DataContext context) : IBa
             foreach (var include in includes)
                 query = query.Include(include);
 
-        var entity = await query.FirstOrDefaultAsync(where);
+        var entity = where != null
+          ? await query.FirstOrDefaultAsync(where)
+          : await query.FirstOrDefaultAsync();
+
         if (entity == null)
             return new RepositoryResult<TModel> { Succeeded = false, StatusCode = 404, Error = "Entity not found" };
 
@@ -115,7 +142,6 @@ public abstract class BaseRepository<TEntity, TModel>(DataContext context) : IBa
                 };
             }
         }
-
 
         return new RepositoryResult<TModel> { Succeeded = true, StatusCode = 200, Result = result };
     }
@@ -137,7 +163,10 @@ public abstract class BaseRepository<TEntity, TModel>(DataContext context) : IBa
             foreach (var include in includes)
                 query = query.Include(include);
 
-        var entity = await query.FirstOrDefaultAsync(where);
+        var entity = where != null
+            ? await query.FirstOrDefaultAsync(where)
+            : await query.FirstOrDefaultAsync();
+
         if (entity == null)
             return new RepositoryResult<TEntity> { Succeeded = false, StatusCode = 404, Error = "Entity not found" };
 

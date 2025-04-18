@@ -11,10 +11,12 @@ using WebbApp.ViewModels;
 namespace WebbApp.Controllers
 {
     [Authorize]
-    public class AdminController(IClientService clientService, IMemberService memberService, RoleManager<IdentityRole> roleManager) : Controller
+    public class AdminController(IClientService clientService, IMemberService memberService, IStatusService statusService, IProjectService projectService, RoleManager<IdentityRole> roleManager) : Controller
     {
         private readonly IClientService _clientService = clientService;
         private readonly IMemberService _memberService = memberService;
+        private readonly IStatusService _statusService = statusService;
+        private readonly IProjectService _projectService = projectService;
         private readonly RoleManager<IdentityRole> _roleManager = roleManager;
 
         public IActionResult Dashboard()
@@ -56,10 +58,110 @@ namespace WebbApp.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Projects()
+        public async Task<IActionResult> Projects()
         {
-            return View();
+            var availableStatuses = await PopulateAvailableStatusesAsync();
+            var availableMembers = await PopulateAvailableMembersAsync();
+            var availableClients = await PopulateAvailableClientsAsync();
+
+            var addprojectViewModel = new AddProjectViewModel
+            {
+                AvailableStatuses = availableStatuses,
+                AvailableMembers = availableMembers,
+                AvailableClients = availableClients
+            };
+
+            var editProjectViewModel = new EditProjectViewModel
+            {
+                AvailableStatuses = availableStatuses,
+                AvailableMembers = availableMembers,
+                AvailableClients = availableClients
+            };
+
+            var viewModel = new ProjectsViewModel
+            {
+                Projects = await PopulateProjectsAsync(),
+                AddProjectForm = addprojectViewModel,
+                EditProjectForm = editProjectViewModel,
+                AvailableStatuses = availableStatuses,
+                AvailableMembers = availableMembers,
+                AvailableClients = availableClients
+            };
+
+            return View(viewModel);
         }
+
+
+
+
+        public async Task<IEnumerable<SelectListItem>> PopulateAvailableStatusesAsync()
+        {
+            var statusResult = await _statusService.GetAllStatusesAsync();
+            if (!statusResult.Succeeded)
+            {
+                return new List<SelectListItem>();
+            }
+            var statuses = statusResult.Result;
+            if (statuses == null || !statuses.Any())
+            {
+                return new List<SelectListItem>();
+            }
+            return statuses.Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(),
+                Text = s.Status
+            });
+        }
+
+        public async Task<IEnumerable<SelectListItem>> PopulateAvailableMembersAsync()
+        {
+            var memberResult = await _memberService.GetMembersAsync();
+            if (!memberResult.Succeeded)
+            {
+                return new List<SelectListItem>();
+            }
+            var members = memberResult.Result;
+            if (members == null || !members.Any())
+            {
+                return new List<SelectListItem>();
+            }
+            return members.Select(m => new SelectListItem
+            {
+                Value = m.Id,
+                Text = $"{m.FirstName} {m.LastName}"
+            });
+        }
+
+        public async Task<IEnumerable<SelectListItem>> PopulateAvailableClientsAsync()
+        {
+            var clientResult = await _clientService.GetAllClientsAsync();
+            if (!clientResult.Succeeded)
+            {
+                return new List<SelectListItem>();
+            }
+            var clients = clientResult.Result;
+            if (clients == null || !clients.Any())
+            {
+                return new List<SelectListItem>();
+            }
+            return clients.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.ClientName
+            });
+        }
+
+
+        public async Task<IEnumerable<Project>> PopulateProjectsAsync()
+        {
+            var result = await _projectService.GetAllProjectsAsync();
+            if (result.Succeeded)
+            {
+                return result.Result?.ToList() ?? [];
+            }
+            return [];
+        }
+
 
         public async Task<IEnumerable<Member>> PopulateMembersAsync()
         {

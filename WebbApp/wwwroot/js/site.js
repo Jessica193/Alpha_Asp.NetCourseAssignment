@@ -1,6 +1,15 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
     const previewSize = 150;
 
+    //Ability to select multiple members in the project modal
+    document.querySelectorAll('.js-member-select').forEach(el => {
+        new TomSelect(el, {
+            placeholder: 'Search and select members',
+            plugins: ['remove_button']
+        });
+    });
+
+
     // Open modal
     document.querySelectorAll('[data-modal="true"]').forEach(button => {
         button.addEventListener('click', () => {
@@ -59,7 +68,6 @@
                 if (!response.ok) throw new Error('Member could not be fetched');
 
                 const data = await response.json();
-                console.log("Member-data till editmodal:", data);
 
                 // Fyll formulärfält
                 form.querySelector('[name="Id"]').value = data.id;
@@ -83,6 +91,53 @@
 
             } catch (error) {
                 console.error('Error collecting member data:', error);
+            }
+        });
+    });
+
+    // Pre-filling out the form when editing project. 
+    document.querySelectorAll('[data-project-id]').forEach(button => {
+        button.addEventListener('click', async () => {
+            const projectId = button.getAttribute('data-project-id');
+            const modalId = button.getAttribute('data-target');
+            const modal = document.querySelector(modalId);
+            const form = modal.querySelector('form');
+
+            try {
+                const response = await fetch(`/Projects/GetProject?id=${projectId}`);
+
+                if (!response.ok)
+                    throw new Error('Project could not be fetched');
+
+                const data = await response.json();
+
+                // Fyll formulärfält
+                if (data) {
+                    form.querySelector('[name="Id"]').value = data.id;
+                    form.querySelector('[name="ProjectName"]').value = data.projectName;
+                    form.querySelector('[name="ClientId"]').value = data.clientId;
+                    form.querySelector('[name="Description"]').value = data.description ?? '';
+                    form.querySelector('[name="StartDate"]').value = data.startDate?.split("T")[0];
+                    form.querySelector('[name="EndDate"]').value = data.endDate?.split("T")[0];
+
+                    const membersSelect = form.querySelector('[name="MemberIds"]');
+                    if (membersSelect && data.memberIds?.length) {
+                        const ts = membersSelect.tomselect;
+                        ts?.setValue(data.memberIds.map(id => id.toString()));
+                    }
+
+                    form.querySelector('[name="Budget"]').value = data.budget ?? '';
+                    form.querySelector('[name="StatusId"]').value = data.statusId;
+
+                    //Visa befintlig bild
+                    const imagePreview = form.querySelector('.image-preview');
+                    if (imagePreview && data.imagePath) {
+                        imagePreview.src = `/${data.imagePath}`;
+                        imagePreview.closest('.image-previewer')?.classList.add('selected');
+                    }
+                }
+            } catch (error) {
+                console.error('Error collecting project data:', error);
             }
         });
     });

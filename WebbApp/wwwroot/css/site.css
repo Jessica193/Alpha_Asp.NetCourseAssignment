@@ -807,6 +807,107 @@ input[type="checkbox"] {
     margin-bottom: .5rem;
 }
 
+/*_ProjectList Partial*/
+
+#projectList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1.5rem;
+}
+
+    #projectList p {
+        margin: 0;
+    }
+
+    #projectList .project-card {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; 
+        height: 100%; 
+        min-height: 250px; 
+    }
+
+    #projectList .project-card-top {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+        #projectList .project-card-top img {
+            height: 3.5rem;
+            width: 3.5rem;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        #projectList .project-card-top button {
+            align-items: start;
+        }
+
+    #projectList .project-card-header-info h6 {
+        margin-top: 0.3rem;
+        margin-bottom: 0.1rem;
+    }
+
+    #projectList .project-card-description {
+        margin-bottom: .5rem;
+    }
+
+    #projectList .project-card-bottom {
+        display: flex;
+        justify-content: space-between;
+        margin-top: auto;
+    }
+
+    #projectList .time-left {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: .5rem;
+        border-radius: .9rem;
+        padding: .4rem .6rem;
+        background-color: var(--Grey200--);
+    }
+
+        #projectList .time-left p {
+            font-size: 0.875rem;
+        }
+
+    #projectList .project-card-member-list {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .3rem;
+    }
+
+        #projectList .project-card-member-list img {
+            height: 1.9rem;
+            width: 1.9rem;
+            object-fit: cover;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+
+/* Filter projects menu */
+
+.filter-projects-menu {
+    display: grid;
+    grid-template-columns: auto auto auto 1fr;
+    gap: 2rem;
+    border-bottom: 1px solid var(--Border200--);
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+.filter-projects-link {
+    font-weight: var(--font-bold);
+    color: var(--text-color-BodyLight--);
+    margin-bottom: .8rem;
+}
+
 
    
 

@@ -1,0 +1,90 @@
+﻿@model AddProjectViewModel
+
+<div id="addProjectModal" class="modal">
+	<div class="modal-content">
+
+		<div class="modal-header">
+			<h3>Add Project</h3>
+			<button type="button" class="btn-close" data-close="true"><i class="fa-solid fa-xmark"></i></button>
+		</div>
+
+		<form novalidate method="post" asp-action="Add" asp-controller="Projects" enctype="multipart/form-data" data-modal-form="true">
+
+			<div class="image-previewer circle ">
+				<img src="" class="image-preview" alt="project image" />
+				<input asp-for="ProjectImage" type="file" class="d-none" accept="image/*" />
+			</div>
+
+
+			<div class="form-group">
+				<label asp-for="ProjectName"></label>
+				<div class="field-group">
+					<input asp-for="ProjectName" />
+					<span asp-validation-for="ProjectName"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="ClientId"></label>
+				<select asp-for="ClientId" asp-items="Model.AvailableClients">
+					<option disabled selected value="">-- Select client --</option>
+				</select>
+				<span asp-validation-for="ClientId"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="Description"></label>
+				<div class="field-group">
+					<input asp-for="Description" />
+					<span asp-validation-for="Description"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="StartDate"></label>
+				<div class="field-group">
+					<input asp-for="StartDate" type="date" placeholder="Enter start date"/>
+					<span asp-validation-for="StartDate"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="EndDate"></label>
+				<div class="field-group">
+					<input asp-for="EndDate" type="date" placeholder="Enter end date"/>
+					<span asp-validation-for="EndDate"></span>
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label asp-for="MemberIds"></label>
+				<select asp-for="MemberIds" asp-items="Model.AvailableMembers" multiple class="js-member-select">
+					<option disabled selected value="">-- Select member --</option>
+				</select>
+				<span asp-validation-for="MemberIds"></span>
+			</div>
+
+
+
+			<div class="form-group">
+				<label asp-for="Budget"></label>
+				<div class="field-group">
+					<input asp-for="Budget" />
+					<span asp-validation-for="Budget"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="StatusId"></label>
+				<select asp-for="StatusId" asp-items="Model.AvailableStatuses">
+					<option disabled selected value="">-- Select status --</option>
+				</select>
+				<span asp-validation-for="StatusId"></span>
+			</div>
+
+			<button class="btn btn-blue btn-submit" type="submit">Create</button>
+		</form>
+
+	</div>
+</div>

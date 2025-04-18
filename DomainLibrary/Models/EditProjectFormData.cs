@@ -9,13 +9,18 @@ public class EditProjectFormData
     public IFormFile? ProjectImage { get; set; }
     public string? ImagePath { get; set; }
     public string ProjectName { get; set; } = null!;
-    public string ClientName { get; set; } = null!;
-    public string Description { get; set; } = null!;
-    public DateOnly StartDate { get; set; } 
-    public DateOnly EndDate { get; set; } 
-    public int UserId { get; set; }
-    public string Budget { get; set; } = null!;
+    public int ClientId { get; set; }
+    public string? Description { get; set; }
+    public DateTime StartDate { get; set; } 
+    public DateTime EndDate { get; set; }
+    public List<string> MemberIds { get; set; } = [];
+    public decimal? Budget { get; set; } = null!;
+    public int StatusId { get; set; }
+
 }
+
+
+
 
 
 
