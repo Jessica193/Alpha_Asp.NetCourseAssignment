@@ -315,6 +315,7 @@ a {
 }
 
 .btn-google {
+    position: relative;
     gap: .7rem;
     width: 100%;
     padding: 1rem;
@@ -323,6 +324,12 @@ a {
 
     .btn-google p {
         margin: 0;
+        text-align: center;
+    }
+    .btn-google img {
+        position: absolute;
+        left: 1rem; 
+        height: 1.2rem; 
     }
 
 
@@ -711,6 +718,18 @@ input[type="checkbox"] {
     }
     #login alert-notification {
         text-align: center;
+    }
+
+    #login .alternative-text {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: .3rem;
+    font-weight: var(--font-semibold);
+}
+
+    #login .alternative-text a {
+        color: var(--Accent--);
     }
 
 #createAccount {

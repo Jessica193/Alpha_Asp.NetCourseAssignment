@@ -10,10 +10,8 @@
 
 	<h1 class="form-headline">Login</h1>
 
-	<a class="btn btn-grey btn-google" href="#">
-		<img src="~/Images/google-icon.svg" alt="google icon">
-		<p>Login with Google</p>
-	</a>
+	@await Html.PartialAsync("Partials/Components/_ExternalAuthenticationPartial")
+	
 
 	<div class="divider">
 		<span>OR</span>
@@ -55,9 +53,14 @@
 
 		<button class="btn btn-blue btn-submit" type="submit">Log In</button>
 	</form>
+
+	<div class="alternative-text">
+		<span>Don't have an account?</span>
+		<a href="@Url.Action("SignUp", "Auth")">SignUp</a>
+	</div>
 </section>
 
-@await Html.PartialAsync("Partials/Javascripts/_ValidationScriptsPartial");
+@await Html.PartialAsync("Partials/Javascripts/_ValidationScriptsPartial")
 
 
 

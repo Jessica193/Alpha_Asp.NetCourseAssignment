@@ -31,13 +31,7 @@
         </aside>
 
         <header class="top-menu">
-            <div>
-                search
-            </div>
-            <div>
-                <a class="btn btn-blue btn-logout" asp-action="SignOut" asp-controller="Auth">Log out</a>
-            </div>
-           
+			@await Html.PartialAsync("Partials/Sections/_HeaderPartial")  
         </header>
 
         <main class="main">

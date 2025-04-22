@@ -1,0 +1,17 @@
+﻿@{
+    var provider = User?.FindFirstValue(ClaimTypes.AuthenticationMethod);
+	if (string.IsNullOrEmpty(provider))
+		provider = "Local Identity";
+
+	var email = User?.FindFirstValue(ClaimTypes.Email);
+
+}
+
+<div class="account-info">
+    <div class=" provider">@provider</div>
+    <div class="email">@email</div>
+</div>
+
+<div>
+    <a class="btn btn-blue btn-logout" asp-action="SignOut" asp-controller="Auth">Log out</a>
+</div>
