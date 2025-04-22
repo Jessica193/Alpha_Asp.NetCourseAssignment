@@ -925,6 +925,9 @@ input[type="checkbox"] {
     font-weight: var(--font-bold);
     color: var(--text-color-BodyLight--);
     margin-bottom: .8rem;
+    border: none;
+    width: fit-content;
+    background-color: transparent;
 }
 
 

@@ -78,7 +78,7 @@ namespace WebbApp.Controllers
                 return BadRequest(new { success = false, errors });
             }
 
-            var result = await _projectService.GetOneProjectAsync(model.Id);
+            var result = await _projectService.GetProjectByIdAsync(model.Id);
             if (!result.Succeeded || result.Result == null)
                 return NotFound();
 
@@ -115,9 +115,15 @@ namespace WebbApp.Controllers
 
         }
 
+
+        /// <summary>
+        /// Get a project byt id to prefill the edit form
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> GetProject(int id)
         {
-            var result = await _projectService.GetOneProjectAsync(id);
+            var result = await _projectService.GetProjectByIdAsync(id);
             if (!result.Succeeded || result.Result == null)
                 return NotFound();
             var project = result.Result;
@@ -137,6 +143,36 @@ namespace WebbApp.Controllers
             };
 
             return Ok(formData); // skickar JSON till JavaScript
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProjectsByStatus(string status)
+        {
+            IEnumerable<Project> projects = [];
+
+            if (status == "All")
+            {
+                var result = await _projectService.GetAllProjectsAsync();
+                if (!result.Succeeded || result.Result == null)
+                    return NotFound();
+
+                projects = result.Result;
+            }
+            else
+            {
+                var result = await _projectService.GetProjectsByStatusAsync(status);
+                if (!result.Succeeded || result.Result == null)
+                    return NotFound();
+
+                projects = result.Result;
+            }
+
+            
+
+           
+
+            return PartialView("Partials/Sections/_ProjectList", projects);
+            //return View(viewModel);
         }
     }
 }

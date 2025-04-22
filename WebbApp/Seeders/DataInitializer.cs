@@ -1,5 +1,7 @@
-﻿using DataLibrary.Entities;
+﻿using DataLibrary.Contexts;
+using DataLibrary.Entities;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
 
 namespace WebbApp.Seeders;
 
@@ -58,6 +60,24 @@ public static class DataInitializer
         }
      
 
+    }
+
+
+    public static async Task SeedStatusesIfMissing(DataContext context)
+    {
+        var preDefinedStatuses = new[] { "Not started", "Started", "Completed" };
+
+        var existingStatuses = context.Statuses.Select(s => s.Status).ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var status in preDefinedStatuses)
+        {
+            if (!existingStatuses.Contains(status))
+            {
+                context.Statuses.Add(new StatusEntity { Status = status });
+            }
+        }
+
+        await context.SaveChangesAsync();
     }
 
 }

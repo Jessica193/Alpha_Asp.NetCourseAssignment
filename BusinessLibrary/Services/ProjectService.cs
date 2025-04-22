@@ -104,7 +104,71 @@ public class ProjectService(IProjectRepository projectRepository, IMemberReposit
         return new ProjectResult<IEnumerable<Project>> { Succeeded = true, StatusCode = 200, Result = projects };
     }
 
-    public async Task<ProjectResult<Project>> GetOneProjectAsync(int id)
+
+    public async Task<ProjectResult<IEnumerable<Project>>> GetProjectsByStatusAsync(string status)
+    {
+        var entitiesResult = await _projectRepository.GetAllEntitiesAsync(
+            where: x => x.Status.Status == status );
+
+        if (!entitiesResult.Succeeded)
+            return new ProjectResult<IEnumerable<Project>> { Succeeded = false, StatusCode = 500, Error = "Could not load projects." };
+
+        if (entitiesResult.Result == null || !entitiesResult.Result.Any())
+            return new ProjectResult<IEnumerable<Project>> { Succeeded = false, StatusCode = 404, Error = "No projects found." };
+
+
+        var projects = entitiesResult.Result.Select(entity => new Project
+        {
+            Id = entity.Id,
+            ImagePath = entity.ImagePath,
+            ProjectName = entity.ProjectName,
+            Description = entity.Description,
+            StartDate = entity.StartDate,
+            EndDate = entity.EndDate,
+            Budget = entity.Budget,
+            ClientId = entity.ClientId,
+            StatusId = entity.StatusId,
+            Members = entity.Members.Select(m => new Member
+            {
+                Id = m.Id,
+                ImagePath = m.ImagePath,
+                FirstName = m.FirstName,
+                LastName = m.LastName,
+                Email = m.Email!,
+                PhoneNumber = m.PhoneNumber,
+                JobTitle = m.JobTitle,
+                DateOfBirth = m.DateOfBirth,
+                Address = m.Address != null
+                ? new MemberAddress
+                {
+                    UserId = m.Address.UserId,
+                    StreetName = m.Address.StreetName,
+                    PostalCode = m.Address.PostalCode,
+                    City = m.Address.City
+                }
+                : null
+            }).ToList(),
+            Client = new Client
+            {
+                Id = entity.Client.Id,
+                ImagePath = entity.Client.ImagePath,
+                ClientName = entity.Client.ClientName,
+                Email = entity.Client.Email,
+                Phone = entity.Client.Phone,
+                Location = entity.Client.Location,
+            },
+            Status = new StatusModel
+            {
+                Id = entity.Status.Id,
+                Status = entity.Status.Status
+            }
+        });
+
+        return new ProjectResult<IEnumerable<Project>> { Succeeded = true, StatusCode = 200, Result = projects };
+    }
+
+
+    public async Task<ProjectResult<Project>> GetProjectByIdAsync(int id)
     {
         var entityResponse = await _projectRepository.GetOneEntityAsync(x => x.Id == id);
 
@@ -165,6 +229,8 @@ public class ProjectService(IProjectRepository projectRepository, IMemberReposit
 
         return new ProjectResult<Project> { Succeeded = true, StatusCode = 200, Result = project };
     }
+
+   
 
     public async Task<ProjectResult> EditProjectAsync(EditProjectFormData form)
     {

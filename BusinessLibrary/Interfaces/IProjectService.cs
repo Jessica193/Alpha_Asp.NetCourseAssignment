@@ -8,5 +8,6 @@ public interface IProjectService
     Task<ProjectResult> CreateProjectAsync(AddProjectFormData form);
     Task<ProjectResult> EditProjectAsync(EditProjectFormData form);
     Task<ProjectResult<IEnumerable<Project>>> GetAllProjectsAsync();
-    Task<ProjectResult<Project>> GetOneProjectAsync(int id);
+    Task<ProjectResult<Project>> GetProjectByIdAsync(int id);
+    Task<ProjectResult<IEnumerable<Project>>> GetProjectsByStatusAsync(string status);
 }

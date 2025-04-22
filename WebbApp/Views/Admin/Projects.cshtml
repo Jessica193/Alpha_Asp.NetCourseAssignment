@@ -14,10 +14,18 @@
 </section>
 
 <section class="filter-projects-menu">
-	<a href="" class="filter-projects-link all">ALL [@Model.]</a>
-	<a href="" class="filter-projects-link not-started">NOT STARTED [0]</a>
-	<a href="" class="filter-projects-link started">STARTED [0]</a>
-	<a href="" class="filter-projects-link completed">COMPLETED [0]</a>
+	<button onclick="filterProjects('All')" class="filter-projects-link all">ALL [@Model.CountAllProjects]</button>
+	<button onclick="filterProjects('Not started')" class="filter-projects-link not-started">NOT STARTED [@Model.CountNotStartedProjects]</button>
+	<button onclick="filterProjects('Started')" class="filter-projects-link started">STARTED [@Model.CountStartedProjects]</button>
+	<button onclick="filterProjects('Completed')" class="filter-projects-link completed">COMPLETED [@Model.CountCompletedProjects]</button>
 </section>
 
-@await Html.PartialAsync("Partials/Sections/_ProjectList", Model.Projects)
+<div id="project-container">
+
+	@await Html.PartialAsync("Partials/Sections/_ProjectList", Model.Projects)
+</div>
+
+@section Scripts 
+{
+	<script src="~/js/projects.js"></script>
+}

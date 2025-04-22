@@ -95,19 +95,20 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    var context = scope.ServiceProvider.GetRequiredService<DataContext>();
 
     try
     {
         await DataInitializer.SeedAsync(services);
+        await DataInitializer.SeedStatusesIfMissing(context);
     }
     catch (Exception ex)
     {
-        Console.WriteLine("An error occurred while initializing roles");
+        Console.WriteLine("An error occurred during data initialization");
         Console.WriteLine(ex.Message);
     }
 }
 
-
-app.Run();
+await app.RunAsync();
 
 

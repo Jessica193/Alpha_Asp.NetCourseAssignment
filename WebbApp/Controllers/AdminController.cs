@@ -151,6 +151,16 @@ namespace WebbApp.Controllers
             });
         }
 
+            public async Task<IEnumerable<SelectListItem>> PopulateAvailableRolesAsync()
+        {
+            var roles = await _roleManager.Roles.ToListAsync();
+            return roles.Select(r => new SelectListItem
+            {
+                Value = r.Name,
+                Text = r.Name
+            });
+        }
+
 
         public async Task<IEnumerable<Project>> PopulateProjectsAsync()
         {
@@ -173,14 +183,6 @@ namespace WebbApp.Controllers
             return [];
         }
 
-        public async Task<IEnumerable<SelectListItem>> PopulateAvailableRolesAsync()
-        {
-            var roles = await _roleManager.Roles.ToListAsync();
-            return roles.Select(r => new SelectListItem
-            {
-                Value = r.Name,
-                Text = r.Name
-            });
-        }
+    
     }
 }
