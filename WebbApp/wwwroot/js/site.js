@@ -35,14 +35,14 @@
 
                 const data = await response.json();
 
-                // Fyll formulär
+             
                 form.querySelector('[name="Id"]').value = data.id;
                 form.querySelector('[name="ClientName"]').value = data.clientName;
                 form.querySelector('[name="Email"]').value = data.email;
                 form.querySelector('[name="Location"]').value = data.location ?? '';
                 form.querySelector('[name="Phone"]').value = data.phone ?? '';
 
-                // Visa befintlig bild
+               
                 const imagePreview = form.querySelector('.image-preview');
                 if (imagePreview && data.imagePath) {
                     imagePreview.src = `/${data.imagePath}`;
@@ -69,7 +69,7 @@
 
                 const data = await response.json();
 
-                // Fyll formulärfält
+                //pre-filling form
                 form.querySelector('[name="Id"]').value = data.id;
                 form.querySelector('[name="FirstName"]').value = data.firstName;
                 form.querySelector('[name="LastName"]').value = data.lastName;
@@ -82,7 +82,7 @@
                 form.querySelector('[name="DateOfBirth"]').value = data.dateOfBirth?.split("T")[0] ?? '';
                 form.querySelector('[name="SelectedRole"]').value = data.selectedRole ?? '';
 
-                 //Visa befintlig bild
+                 //show existing image
                 const imagePreview = form.querySelector('.image-preview');
                 if (imagePreview && data.imagePath) {
                     imagePreview.src = `/${data.imagePath}`;
@@ -111,14 +111,14 @@
 
                 const data = await response.json();
 
-                // Fyll formulärfält
+                //pre-filling form
                 if (data) {
                     form.querySelector('[name="Id"]').value = data.id;
                     form.querySelector('[name="ProjectName"]').value = data.projectName;
                     form.querySelector('[name="ClientId"]').value = data.clientId;
                     form.querySelector('[name="Description"]').value = data.description ?? '';
-                    form.querySelector('[name="StartDate"]').value = data.startDate?.split("T")[0];
-                    form.querySelector('[name="EndDate"]').value = data.endDate?.split("T")[0];
+                    form.querySelector('[name="StartDate"]').value = data.startDate?.split("T")[0] ?? '';
+                    form.querySelector('[name="EndDate"]').value = data.endDate?.split("T")[0] ?? '';
 
                     const membersSelect = form.querySelector('[name="MemberIds"]');
                     if (membersSelect && data.memberIds?.length) {
@@ -129,7 +129,7 @@
                     form.querySelector('[name="Budget"]').value = data.budget ?? '';
                     form.querySelector('[name="StatusId"]').value = data.statusId;
 
-                    //Visa befintlig bild
+                    //show existing image
                     const imagePreview = form.querySelector('.image-preview');
                     if (imagePreview && data.imagePath) {
                         imagePreview.src = `/${data.imagePath}`;
@@ -236,11 +236,45 @@
             }
         });
     });
+
+
+    //Js for dropdowns in top-menu
+    const dropdownButtons = document.querySelectorAll('[data-type="dropdown"]');
+
+    document.addEventListener('click', function (event) {
+        let clickedDropdownButton = null;
+
+        dropdownButtons.forEach(dropdownButton => {
+            const targetId = dropdownButton.getAttribute('data-target');
+            const targetDropdownMenu = document.querySelector(targetId);
+
+            if (dropdownButton.contains(event.target)) {
+                clickedDropdownButton = targetDropdownMenu;
+
+                document.querySelectorAll('.dropdown.dropdown-show').forEach(openDropdown => {
+                    if (openDropdown !== targetDropdownMenu) {
+                        openDropdown.classList.remove('dropdown-show');
+                    }
+                });
+
+                targetDropdownMenu.classList.toggle('dropdown-show');
+            }
+        });
+
+        if (!clickedDropdownButton && !event.target.closest('.dropdown')) {
+            document.querySelectorAll('.dropdown.dropdown-show').forEach(openDropdown => {
+                openDropdown.classList.remove('dropdown-show');
+            });
+        }
+    });
+
 });
 
 
 
-// Funktion för att rensa felmeddelanden
+
+
+// Function to clear error messages
 function clearErrorMessages(form) {
     form.querySelectorAll('[data-val="true"]').forEach(input => {
         input.classList.remove('input-validation-error');
@@ -253,7 +287,7 @@ function clearErrorMessages(form) {
 }
 
 
-// Funktion för att ladda in bild
+// Function to load image
 async function loadImage(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -270,7 +304,7 @@ async function loadImage(file) {
     });
 }
 
-// Funktion för att hantera bildförhandsvisning
+// Function to handle image preview
 async function processImage(file, imagePreview, previewer, previewSize = 150) {
     try {
         const img = await loadImage(file);
@@ -286,3 +320,6 @@ async function processImage(file, imagePreview, previewer, previewSize = 150) {
         console.error('Failed on image-processing', error);
     }
 }
+
+
+

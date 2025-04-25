@@ -15,8 +15,47 @@
                         <h6>@project.ProjectName</h6>
                         <p>@project.Client.ClientName</p>
                     </div>
-                    <button class="btn-edit"><i class="fa-solid fa-ellipsis" type="button" data-modal="true" data-target="#editProjectModal" data-project-id="@project.Id"></i></button>
+                    <button class="btn-edit" type="button" data-modal="true" data-target="#editProjectModal" data-project-id="@project.Id">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </button>    
                 </div>
+
+
+
+
+                <div id="account-dropdown" class="dropdown">
+                    <div class="dropdown-header">
+                        <div class="account-name">
+                            <img src="~/Images/ProjectImage.svg" alt="profile picture" />
+                            <span>Jessica Eriksson</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-body">
+                        <nav class="dropdown-options">
+                            <div class="dropdown-option">
+                                <label for="darkModeToggle" class="switch-label">
+                                    <i class="fa-duotone fa-solid fa-cog"></i>
+                                    <span>Dark Mode</span>
+                                </label>
+                                <label class="switch">
+                                    <input type="checkbox" id="darkModeToggle" data-type="toggle" data-func="darkmode" />
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </nav>
+                        <div class="divider account-divider"></div>
+                        <nav class="dropdown-actions">
+                            <a class="dropdown-action" asp-action="SignOut" asp-controller="Auth">
+                                <i class="fa-duotone fa-solid fa-right-from-bracket"></i>
+                                <span>Logout</span>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+
+
+
+
 
                 <p class="project-card-description">@project.Description</p>
 

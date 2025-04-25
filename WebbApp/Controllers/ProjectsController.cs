@@ -167,12 +167,7 @@ namespace WebbApp.Controllers
                 projects = result.Result;
             }
 
-            
-
-           
-
             return PartialView("Partials/Sections/_ProjectList", projects);
-            //return View(viewModel);
         }
     }
 }

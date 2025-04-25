@@ -12,7 +12,7 @@
                 <img src="~/@(member.ImagePath ?? "Images/Avatars/Avatar1.svg")" alt="Profile image">
                 <h4>@member.FirstName @member.LastName</h4>
                 <div class="jobtitle">
-                    <p>@member.JobTitle</p>
+                    <p>@(member.JobTitle ?? "Job Title")</p>
                 </div>
                 <p>@member.Email</p>
                 <p class="member-phone">@member.PhoneNumber</p>
