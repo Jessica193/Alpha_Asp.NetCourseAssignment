@@ -5,9 +5,32 @@
     @foreach (var member in Model)
     {
         <div class="member-card surface">
-            <div class="btn-edit-div">
-                <button data-member-id="@member.Id" class="btn-edit" type="button" data-modal="true" data-target="#editMemberModal"><i class="fa-solid fa-ellipsis"></i></button>
+
+            <div id="member-actions-container">
+                <div class="btn-edit-div">
+                    <button class="btn-edit" type="button" data-type="dropdown" data-target="#member-dropdown-@member.Id">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </button>
+                </div>
+                <div id="member-dropdown-@member.Id" class="dropdown">
+                    <div class="dropdown-body">
+                        <nav class="dropdown-actions">
+                            <a class="dropdown-action" data-modal="true" data-member-id="@member.Id" data-target="#editMemberModal">
+                                <i class="fa-duotone fa-solid fa-pen-line"></i>
+                                <span>Edit</span>
+                            </a>
+                        </nav>
+                        <div class="divider member-divider"></div>
+                        <nav class="dropdown-actions">
+                            <a class="dropdown-action" asp-action="" asp-controller="">
+                                <i class="fa-duotone fa-solid fa-trash" style="--fa-primary-color: #e52424; --fa-secondary-color: #e52424;"></i>
+                                <span class="delete-span">Delete Member</span>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
             </div>
+
             <div class="member-card-content">
                 <img src="~/@(member.ImagePath ?? "Images/Avatars/Avatar1.svg")" alt="Profile image">
                 <h4>@member.FirstName @member.LastName</h4>

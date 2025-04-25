@@ -32,10 +32,60 @@
 						</div>
 					</td>
 					<td class="client-actions">
-						<i class="fa-regular fa-ellipsis" data-modal="true" data-target="#editClientModal" data-client-id="@client.Id"></i>
+						@* <i class="fa-regular fa-ellipsis" data-modal="true" data-target="#editClientModal" data-client-id="@client.Id"></i> *@
+						<div id="client-actions-container">
+							<div class="btn-edit-div">
+								<button class="btn-edit" type="button" data-type="dropdown" data-target="#client-dropdown-@client.Id">
+									<i class="fa-solid fa-ellipsis"></i>
+								</button>
+							</div>
+							<div id="client-dropdown-@client.Id" class="dropdown">
+								<div class="dropdown-body">
+									<nav class="dropdown-actions">
+										<a class="dropdown-action" data-modal="true" data-client-id="@client.Id" data-target="#editClientModal">
+											<i class="fa-duotone fa-solid fa-pen-line"></i>
+											<span>Edit</span>
+										</a>
+									</nav>
+									<div class="divider member-divider"></div>
+									<nav class="dropdown-actions">
+										<a class="dropdown-action" asp-action="" asp-controller="">
+											<i class="fa-duotone fa-solid fa-trash" style="--fa-primary-color: #e52424; --fa-secondary-color: #e52424;"></i>
+											<span class="delete-span">Delete Client</span>
+										</a>
+									</nav>
+								</div>
+							</div>
+						</div>
+
 					</td>
 				</tr>
 			}
 		</tbody>
 	</table>
 </div>
+
+@* <div id="member-actions-container"> *@
+@* 	<div class="btn-edit-div"> *@
+@* 		<button class="btn-edit" type="button" data-type="dropdown" data-target="#member-dropdown-@client.Id"> *@
+@* 			<i class="fa-solid fa-ellipsis"></i> *@
+@* 		</button> *@
+@* 	</div> *@
+@* 	<div id="member-dropdown-@client.Id" class="dropdown"> *@
+@* 		<div class="dropdown-body"> *@
+@* 			<nav class="dropdown-actions"> *@
+@* 				<a class="dropdown-action" data-modal="true" data-member-id="@client.Id" data-target="#editMemberModal"> *@
+@* 					<i class="fa-duotone fa-solid fa-pen-line"></i> *@
+@* 					<span>Edit</span> *@
+@* 				</a> *@
+@* 			</nav> *@
+@* 			<div class="divider member-divider"></div> *@
+@* 			<nav class="dropdown-actions"> *@
+@* 				<a class="dropdown-action" asp-action="" asp-controller=""> *@
+@* 					<i class="fa-duotone fa-solid fa-trash" style="--fa-primary-color: #e52424; --fa-secondary-color: #e52424;"></i> *@
+@* 					<span class="delete-span">Delete Member</span> *@
+@* 				</a> *@
+@* 			</nav> *@
+@* 		</div> *@
+@* 	</div> *@
+@* </div> *@

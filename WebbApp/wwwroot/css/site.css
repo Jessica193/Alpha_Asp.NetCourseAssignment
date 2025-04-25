@@ -483,39 +483,9 @@ a {
     display: flex !important;
 }
 
-/* list */
-
-.client-list {
-
-}
-    .client-list table tr {
-        grid-template-areas: "check info location phone date status actions";
-        grid-template-columns: auto 3fr 3fr 2fr 2fr 2fr 50px;
-    }
-    .client-list .client-info {
-        display: grid;
-        grid-template-areas: "image name" "image email";
-        grid-template-columns: auto 1fr;
-        column-gap: 1rem;
-        align-items: center;
-    }
-        .client-list .client-info .client-image {
-            grid-area: image;
-            height: 48px;
-            width: 48px;
-        }
-        .client-list .client-info .client-name {
-            grid-area: name;
-            font-weight: var(--font-bold);
-        }
-        .client-list .client-info .client-email {
-            grid-area: email;
-            color: var(--text-color-BodyLight--)
-        }
 
 
 /*tables*/
-
 table {
     width: 100%;
     border-collapse: collapse;
@@ -954,9 +924,16 @@ input:checked + .slider {
     .notification-divider::before, .notification-divider::after {
         margin: 1rem 0;
     }
+    .project-divider::before, .project-divider::after {
+        margin: .3rem 0;
+    }
+    .member-divider::before, .member-divider::after {
+        margin: .3rem 0;
+    }
+    
+
 
 /*modal*/
-
 .modal {
     display: none;
     justify-content: center;
@@ -968,8 +945,8 @@ input:checked + .slider {
     right: 0;
     bottom: 0;
     overflow: auto; /* Viktigt! tillåter scroll om modal är större än viewport */
-    padding: 2rem; /* Lite luft runt modal-content */
-    z-index: 9999; /* Se till att modalen ligger över allt annat */
+    padding: 2rem; 
+    z-index: 9999; 
 }
 
     .modal .modal-content {
@@ -1071,12 +1048,107 @@ input:checked + .slider {
   
 }
 
+/*_ClientList Partial*/
+
+.client-list {
+}
+
+    .client-list table tr {
+        grid-template-areas: "check info location phone date status actions";
+        grid-template-columns: auto 3fr 3fr 2fr 2fr 2fr 50px;
+    }
+
+    .client-list .client-info {
+        display: grid;
+        grid-template-areas: "image name" "image email";
+        grid-template-columns: auto 1fr;
+        column-gap: 1rem;
+        align-items: center;
+    }
+
+        .client-list .client-info .client-image {
+            grid-area: image;
+            height: 48px;
+            width: 48px;
+        }
+
+        .client-list .client-info .client-name {
+            grid-area: name;
+            font-weight: var(--font-bold);
+        }
+
+        .client-list .client-info .client-email {
+            grid-area: email;
+            color: var(--text-color-BodyLight--)
+        }
+
+#client-actions-container {
+    position: relative;
+}
+
+    #client-actions-container .dropdown {
+        position: absolute;
+        right: 0;
+        top: 120%;
+        min-width: 250px;
+        box-shadow: 0 0 5px 2px rgba(137, 137, 137, 0.1);
+    }
+
+        #client-actions-container .dropdown .dropdown-action {
+            border: 2px solid transparent;
+            transition: all 0.1s ease-in-out;
+            outline: none;
+        }
+
+            #client-actions-container .dropdown .dropdown-action:hover {
+                border: 2px solid var(--Grey100--);
+                color: var(--text-color-BodyDark--);
+                background-color: var(--Grey100--);
+                transition: all 0.1s ease-in-out;
+                outline: none;
+            }
+
+        #client-actions-container .dropdown .delete-span {
+            color: var(--Red--)
+        }
+
+
 /*_MemberList Partial*/
 
 #memberList {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
 }
+
+#member-actions-container {
+    position: relative;
+}
+
+    #member-actions-container .dropdown {
+        position: absolute;
+        right: 0;
+        top: 130%;
+        min-width: 250px;
+        box-shadow: 0 0 5px 2px rgba(137, 137, 137, 0.1);
+    }
+
+    #member-actions-container .dropdown .dropdown-action {
+        border: 2px solid transparent;
+        transition: all 0.1s ease-in-out;
+        outline: none;
+    }
+
+    #member-actions-container .dropdown .dropdown-action:hover {
+        border: 2px solid var(--Grey100--);
+        color: var(--text-color-BodyDark--);
+        background-color: var(--Grey100--);
+        transition: all 0.1s ease-in-out;
+        outline: none;
+    }
+
+    #member-actions-container .dropdown .delete-span {
+        color: var(--Red--)
+    }
 
     #memberList p {
         margin: 0;
@@ -1164,9 +1236,39 @@ input:checked + .slider {
         margin-bottom: 0.1rem;
     }
 
-    #projectList .project-card-description {
-        margin-bottom: .5rem;
+    #project-actions-container {
+        position: relative;
     }
+
+        #project-actions-container .dropdown {
+            position: absolute;
+            right: 0;
+            top: 60%;
+            min-width: 250px;
+            box-shadow: 0 0 5px 2px rgba(137, 137, 137, 0.1);
+        }
+
+            #project-actions-container .dropdown .dropdown-action {
+                border: 2px solid transparent;
+                transition: all 0.1s ease-in-out;
+                outline: none;
+            }
+
+            #project-actions-container .dropdown .dropdown-action:hover {
+                border: 2px solid var(--Grey100--);
+                color: var(--text-color-BodyDark--);
+                background-color: var(--Grey100--);
+                transition: all 0.1s ease-in-out;
+                outline: none;
+            }
+
+        #project-actions-container .dropdown .delete-span {
+            color: var(--Red--)
+        }
+
+#projectList .project-card-description {
+    margin-bottom: .5rem;
+}
 
     #projectList .project-card-bottom {
         display: flex;
