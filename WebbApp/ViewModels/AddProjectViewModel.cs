@@ -61,4 +61,6 @@ public class AddProjectViewModel
 
     public IEnumerable<SelectListItem> AvailableStatuses { get; set; } = [];
 
+    //Lista över members. populera den i controllen och stoppa in i model in i projects-action
+
 }

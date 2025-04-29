@@ -3,6 +3,7 @@ using BusinessLibrary.Services;
 using DomainLibrary.Extentions;
 using DomainLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using WebbApp.ViewModels;
 
@@ -58,8 +59,6 @@ public class ClientsController(IClientService clientService, IWebHostEnvironment
 
         return Problem("Unable to add client", statusCode: 500);
     }
-
- 
 
 
     [HttpPost]
@@ -118,6 +117,30 @@ public class ClientsController(IClientService clientService, IWebHostEnvironment
 
         return Problem(updateResult.Error ?? "Unable to edit client", statusCode: updateResult.StatusCode);
     }
+
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id)
+    {
+        if (id == 0)
+        {
+            return BadRequest("Invalid client id.");
+        }
+
+        var result = await _clientService.DeleteClientAsync(id);
+
+        if (result.Succeeded)
+        {
+            return RedirectToAction("Clients", "Admin");
+        }
+        else
+        {
+            return Problem(result.Error ?? "Unable to delete client", statusCode: result.StatusCode);
+        }
+    }
+
+
+
 
 
 

@@ -96,7 +96,24 @@ public class ClientService(IClientRepository clientRepository) : IClientService
         }
     }
 
+    public async Task<ClientResult> DeleteClientAsync(int id)
+    {
+        var entityResult = await _clientRepository.GetOneEntityAsync(x => x.Id == id);
 
+        if (!entityResult.Succeeded)
+            return new ClientResult { Succeeded = false, StatusCode = 500, Error = "Could not load client." };
+
+        if (entityResult.Result == null)
+            return new ClientResult { Succeeded = false, StatusCode = 404, Error = "No client found." };
+
+        var entity = entityResult.Result;
+
+        var result = await _clientRepository.DeleteAsync(entity);
+
+        return result.Succeeded
+           ? new ClientResult { Succeeded = true, StatusCode = 200 }
+           : new ClientResult { Succeeded = false, StatusCode = result.StatusCode, Error = result.Error };
+    }
 
 
 }

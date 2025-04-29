@@ -22,10 +22,21 @@
                         </nav>
                         <div class="divider member-divider"></div>
                         <nav class="dropdown-actions">
-                            <a class="dropdown-action" asp-action="" asp-controller="">
-                                <i class="fa-duotone fa-solid fa-trash" style="--fa-primary-color: #e52424; --fa-secondary-color: #e52424;"></i>
-                                <span class="delete-span">Delete Member</span>
-                            </a>
+
+                            <form asp-action="Delete" asp-controller="Members" asp-route-id="@member.Id" method="post" novalidate>
+                                <button type="submit" class="dropdown-action">
+                                    <i class="fa-duotone fa-solid fa-trash" style="--fa-primary-color: #e52424; --fa-secondary-color: #e52424;"></i>
+                                    <span class="delete-span">Delete Member</span>
+                                </button>
+                            </form>
+
+
+                            @* <a class="dropdown-action" asp-action="" asp-controller=""> *@
+                            @*     <i class="fa-duotone fa-solid fa-trash" style="--fa-primary-color: #e52424; --fa-secondary-color: #e52424;"></i> *@
+                            @*     <span class="delete-span">Delete Member</span> *@
+                            @* </a> *@
+
+
                         </nav>
                     </div>
                 </div>

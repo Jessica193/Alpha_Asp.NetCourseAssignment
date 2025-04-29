@@ -538,11 +538,47 @@ form {
         margin-bottom: 1rem;
     }
 
-    .field-group {
-        position: relative;
-        display: flex;
-        align-items: center;
+        form .form-group.form-group-flex {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+.form-group-flex .form-group {
+    flex: 1;
+}
+
+     
+
+        .field-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+.budget-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+    .budget-input-wrapper input {
+        padding-left: 1.8rem;
+        width: 100%;
+        box-sizing: border-box;
     }
+
+
+    .budget-input-wrapper .currency-symbol {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-color-Heading);
+        font-size: 1rem;
+        pointer-events: none;
+    }
+
 
 .search-form {
     display: flex;
@@ -589,6 +625,10 @@ form input[type="search"]:focus {
     border: 0;
     border-bottom: 1px solid var(--form-border-focus-color);
     border-radius: 0;
+}
+
+form input.project-date {
+    padding-right:1rem;
 }
 
 
@@ -649,6 +689,53 @@ form input[type="search"]:focus {
         cursor: pointer;
         border-radius: 0.9rem;
     }
+
+
+
+.ts-control {
+    background-color: var(--Surface--);
+    border: 1px solid var(--Border100--);
+    border-radius: 1rem;
+    padding: 0.6rem 0.75rem;
+    min-height: 44px;
+    font-size: 1rem;
+    box-shadow: none;
+}
+
+    .ts-control input {
+        font-size: 1rem;
+        padding: 0.2rem;
+    }
+
+.ts-wrapper.multi .ts-control > div {
+    background-color: var(--Primary10--);
+    color: var(--Primary100--);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    margin: 2px;
+    font-size: 0.9rem;
+}
+
+.ts-dropdown {
+    border-radius: 8px;
+    border: 1px solid var(--Border100--);
+    font-size: 0.95rem;
+}
+
+    .ts-dropdown .option {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+    }
+
+        .ts-dropdown .option:hover {
+            background-color: var(--Grey100--);
+        }
+.ts-control .item .remove {
+    margin-left: 0.5rem;
+    font-size: 1rem;
+    color: var(--text-color-BodyLight--);
+}
+
 
 
 
@@ -724,6 +811,11 @@ form input[type="search"]:focus {
     border-radius: 50%;
     display: block;
 }
+
+    .image-preview:not([src]),
+    .image-preview[src=""] {
+        display: none;
+    }
 
 /* dropdowns */
 
@@ -1098,6 +1190,7 @@ input:checked + .slider {
             border: 2px solid transparent;
             transition: all 0.1s ease-in-out;
             outline: none;
+            width: 100%;
         }
 
             #client-actions-container .dropdown .dropdown-action:hover {
@@ -1136,6 +1229,7 @@ input:checked + .slider {
         border: 2px solid transparent;
         transition: all 0.1s ease-in-out;
         outline: none;
+        width: 100%;
     }
 
     #member-actions-container .dropdown .dropdown-action:hover {
@@ -1252,6 +1346,7 @@ input:checked + .slider {
                 border: 2px solid transparent;
                 transition: all 0.1s ease-in-out;
                 outline: none;
+                width: 100%;
             }
 
             #project-actions-container .dropdown .dropdown-action:hover {
@@ -1412,9 +1507,6 @@ input:checked + .slider {
         }
 
         
-
-
-
 
 /* account container */
 #account-container {

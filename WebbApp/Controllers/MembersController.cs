@@ -129,6 +129,28 @@ public class MembersController(IWebHostEnvironment env, IMemberService memberSer
 
     }
 
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(string id)
+    {
+        if (string.IsNullOrEmpty(id))
+        {
+            return BadRequest("Invalid member id.");
+        }
+
+        var result = await _memberService.DeleteMemberAsync(id);
+
+        if (result.Succeeded)
+        {
+            return RedirectToAction("Members", "Admin");
+        }
+        else
+        {
+            return Problem(result.Error ?? "Unable to delete member", statusCode: result.StatusCode);
+        }
+    }
+
+
     //Genererad av chatgpt för att hämta en klient i samband med att få förifyllt formulär vid editering
     public async Task<IActionResult> GetMember(string id)
     {

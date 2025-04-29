@@ -270,4 +270,23 @@ public class ProjectService(IProjectRepository projectRepository, IMemberReposit
             ? new ProjectResult { Succeeded = true, StatusCode = 200 }
             : new ProjectResult { Succeeded = false, StatusCode = result.StatusCode, Error = result.Error };
     }
+
+    public async Task<ProjectResult> DeleteProjectAsync(int id)
+    {
+        var entityResult = await _projectRepository.GetOneEntityAsync(x => x.Id == id);
+
+        if (!entityResult.Succeeded)
+            return new ProjectResult { Succeeded = false, StatusCode = 500, Error = "Could not load project." };
+
+        if (entityResult.Result == null)
+            return new ProjectResult { Succeeded = false, StatusCode = 404, Error = "No project found." };
+
+        var entity = entityResult.Result;
+
+        var result = await _projectRepository.DeleteAsync(entity);
+
+        return result.Succeeded
+           ? new ProjectResult { Succeeded = true, StatusCode = 200 }
+           : new ProjectResult { Succeeded = false, StatusCode = result.StatusCode, Error = result.Error };
+    }
 }

@@ -11,4 +11,5 @@ public interface IMemberService
     Task<MemberResult<IEnumerable<Member>>> GetMembersAsync();
     Task<bool> MemberExists(string email);
     Task<MemberResult> EditMemberAsync(Member member);
+    Task<MemberResult> DeleteMemberAsync(string id);
 }

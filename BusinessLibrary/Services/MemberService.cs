@@ -190,6 +190,26 @@ public class MemberService(IMemberRepository memberRepository, UserManager<Membe
     }
 
 
+    public async Task<MemberResult> DeleteMemberAsync(string id)
+    {
+        var entityResult = await _memberRepository.GetOneEntityAsync(x => x.Id == id);
+
+        if (!entityResult.Succeeded)
+            return new MemberResult { Succeeded = false, StatusCode = 500, Error = "Could not load member." };
+
+        if (entityResult.Result == null)
+            return new MemberResult { Succeeded = false, StatusCode = 404, Error = "No member found." };
+
+        var entity = entityResult.Result;
+
+        var result = await _memberRepository.DeleteAsync(entity);
+
+        return result.Succeeded
+           ? new MemberResult { Succeeded = true, StatusCode = 200 }
+           : new MemberResult { Succeeded = false, StatusCode = result.StatusCode, Error = result.Error };
+    }
+
+
     public async Task<MemberResult> AddMemberToRoleAsync(string memberId, string roleName)
     {
         var role = await _roleManager.RoleExistsAsync(roleName);

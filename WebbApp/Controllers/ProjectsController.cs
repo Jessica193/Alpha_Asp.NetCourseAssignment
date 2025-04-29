@@ -48,7 +48,19 @@ namespace WebbApp.Controllers
                 imagePath = Path.Combine("Uploads", "Projects", fileName).Replace("\\", "/");  //ex: "Uploads/Clients/GuidNr.jpg"
             }
 
-            var addProjectFormData = model.MapTo<AddProjectFormData>();
+            var addProjectFormData = new AddProjectFormData
+            {
+                ProjectImage = model.ProjectImage,
+                ProjectName = model.ProjectName,
+                ClientId = model.ClientId,
+                Description = model.Description,
+                StartDate = model.StartDate ?? DateTime.Now,
+                EndDate = model.EndDate ?? DateTime.Now,
+                MemberIds = model.MemberIds,
+                Budget = model.Budget,
+                StatusId = model.StatusId,
+            };
+
             if (imagePath != null)
                 addProjectFormData.ImagePath = imagePath;
             var result = await _projectService.CreateProjectAsync(addProjectFormData);
@@ -57,8 +69,6 @@ namespace WebbApp.Controllers
                 return Ok(new { success = true });
 
             return Problem("Unable to add project", statusCode: 500);
-
-
         }
 
 
@@ -111,13 +121,35 @@ namespace WebbApp.Controllers
                 return Ok(new { success = true });
 
             return Problem(updateResult.Error ?? "Unable to edit project", statusCode: updateResult.StatusCode);
-
-
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest("Invalid project id.");
+            }
+
+            var result = await _projectService.DeleteProjectAsync(id);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Projects", "Admin");
+            }
+            else
+            {
+                return Problem(result.Error ?? "Unable to delete project", statusCode: result.StatusCode);
+            }
+        }
+
+
+
+
+
         /// <summary>
-        /// Get a project byt id to prefill the edit form
+        /// Get a project by id to prefill the edit form
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -145,6 +177,12 @@ namespace WebbApp.Controllers
             return Ok(formData); // skickar JSON till JavaScript
         }
 
+
+        /// <summary>
+        /// Filter project by status, return partialview _ProjectList
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetProjectsByStatus(string status)
         {

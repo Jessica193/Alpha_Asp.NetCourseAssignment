@@ -34,12 +34,14 @@
                                             <span>Add Member</span>
                                         </a>
                                     </nav>
-                                    <div class="divider project-divider"></div>
+                                    <div class="divider dropdown-divider"></div>
                                     <nav class="dropdown-actions">
-                                        <a class="dropdown-action" asp-action="" asp-controller="">
+                                    <form asp-action="Delete" asp-controller="Projects" asp-route-id="@project.Id" method="post" novalidate>
+                                        <button type="submit" class="dropdown-action">
                                             <i class="fa-duotone fa-solid fa-trash" style="--fa-primary-color: #e52424; --fa-secondary-color: #e52424;"></i>
                                             <span class="delete-span">Delete Project</span>
-                                        </a>
+                                        </button>
+                                    </form>
                                     </nav>
                                 </div>
                             </div>

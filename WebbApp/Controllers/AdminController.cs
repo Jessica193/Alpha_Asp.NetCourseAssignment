@@ -24,7 +24,7 @@ namespace WebbApp.Controllers
             return View();
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Members()
         {
             var availableRoles = await PopulateAvailableRolesAsync();
@@ -50,7 +50,7 @@ namespace WebbApp.Controllers
             return View(viewModel);
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Clients()
         {
             var viewModel = new ClientsViewModel(_clientService);
