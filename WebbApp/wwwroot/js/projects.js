@@ -7,7 +7,7 @@ function filterProjects(status) {
             document.getElementById('project-container').innerHTML = html;
 
 
-            //functions are located in site.js
+            //all located in site.js
             initializeDropdowns();
             initializeOpenModals();
             initializeProjectModals();

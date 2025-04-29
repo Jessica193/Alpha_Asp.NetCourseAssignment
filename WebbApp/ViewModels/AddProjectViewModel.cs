@@ -18,9 +18,10 @@ public class AddProjectViewModel
     public string ProjectName { get; set; } = null!;
 
 
-    [Display(Name = "Client Name", Prompt = "Select a client")]
+    [Display(Name = "Client Name")]
     [DataType(DataType.Text)]
-    [Required(ErrorMessage = "Required")]
+    [Required(ErrorMessage = "Please select a client")]
+    [Range(1, int.MaxValue, ErrorMessage = "Please select a client")]
     public int ClientId { get; set; }
 
     public IEnumerable<SelectListItem> AvailableClients { get; set; } = [];
@@ -58,6 +59,7 @@ public class AddProjectViewModel
 
     [Display(Name = "Status", Prompt = "Select a status")]
     [Required(ErrorMessage = "You must select a status")]
+    [Range(1, int.MaxValue, ErrorMessage = "Please select a status")]
     public int StatusId { get; set; }
 
     public IEnumerable<SelectListItem> AvailableStatuses { get; set; } = [];

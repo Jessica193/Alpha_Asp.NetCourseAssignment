@@ -625,7 +625,7 @@ form input[type="search"]:focus {
     border-radius: 0;
 }
 
-form input.project-date {
+form input.modal-date {
     padding-right:1rem;
 }
 
@@ -666,14 +666,14 @@ form input.project-date {
     z-index: 1;
     right: .8rem;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(0%);
     font-size: 0.8em;
     background-color: transparent;
     color: var(--DarkRed--);
     padding: 0.4rem 1rem;
     border-radius: .9rem;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     gap: 0.5rem;
     white-space: nowrap;
