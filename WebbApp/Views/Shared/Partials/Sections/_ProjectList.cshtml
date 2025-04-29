@@ -71,15 +71,10 @@
                         {
                             timeLeftText = $"{daysLeft} days left";
                         }
-                        else if (daysLeft < 30)
+                        else
                         {
                             var weeks = daysLeft / 7;
                             timeLeftText = weeks == 1 ? "1 week left" : $"{weeks} weeks left";
-                        }
-                        else
-                        {
-                            var months = daysLeft / 30;
-                            timeLeftText = months == 1 ? "1 month left" : $"{months} months left";
                         }
                     }
 

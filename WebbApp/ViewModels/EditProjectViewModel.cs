@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using DomainLibrary.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebbApp.ViewModels;
@@ -49,7 +50,7 @@ public class EditProjectViewModel
     [Required(ErrorMessage = "You must select a member")]
     public List<string> MemberIds { get; set; } = [];
 
-    public IEnumerable<SelectListItem> AvailableMembers { get; set; } = [];
+    public IEnumerable<MemberSelectListItemViewModel> AvailableMembers { get; set; } = [];
 
 
 
@@ -63,5 +64,7 @@ public class EditProjectViewModel
     public int StatusId { get; set; }
 
     public IEnumerable<SelectListItem> AvailableStatuses { get; set; } = [];
+
+
 }
 

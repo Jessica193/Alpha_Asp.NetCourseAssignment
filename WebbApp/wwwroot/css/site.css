@@ -548,13 +548,11 @@ form {
     flex: 1;
 }
 
-     
-
-        .field-group {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
+.field-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
 
 .budget-input-wrapper {
     position: relative;
@@ -661,6 +659,38 @@ form input.project-date {
         border-color: var(--DarkRed--);
     }
 
+
+
+.modal form .field-validation-error {
+    position: static;
+    z-index: 1;
+    right: .8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8em;
+    background-color: transparent;
+    color: var(--DarkRed--);
+    padding: 0.4rem 1rem;
+    border-radius: .9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.modal form .input-validation-error {
+    border-color: var(--DarkRed--);
+}
+.modal .field-group {
+    position: static;
+    display: grid;
+/*    align-items: center;*/
+}
+
+
+
+
     form .checkbox-group {
         display: flex;
         justify-content: space-between;
@@ -690,7 +720,7 @@ form input.project-date {
         border-radius: 0.9rem;
     }
 
-
+/*styling multiple select*/
 
 .ts-control {
     background-color: var(--Surface--);
@@ -708,12 +738,16 @@ form input.project-date {
     }
 
 .ts-wrapper.multi .ts-control > div {
-    background-color: var(--Primary10--);
-    color: var(--Primary100--);
-    border-radius: 4px;
-    padding: 0.25rem 0.5rem;
-    margin: 2px;
-    font-size: 0.9rem;
+    background-color: var(--Grey100--); 
+    color: var(--text-color-Heading);
+    border-radius: 8px;
+    padding: 0.35rem 0.75rem;
+    margin: 0.5rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--Grey100--);
 }
 
 .ts-dropdown {
@@ -734,6 +768,28 @@ form input.project-date {
     margin-left: 0.5rem;
     font-size: 1rem;
     color: var(--text-color-BodyLight--);
+    border: none;
+}
+
+
+/*styling images multiple select*/
+.ts-option-with-avatar,
+.ts-item-with-avatar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-sm {
+    width: 22px;
+    height: 22px;
 }
 
 

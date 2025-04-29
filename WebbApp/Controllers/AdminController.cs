@@ -68,14 +68,14 @@ namespace WebbApp.Controllers
             {
                 AvailableStatuses = availableStatuses,
                 AvailableMembers = availableMembers,
-                AvailableClients = availableClients
+                AvailableClients = availableClients,
             };
 
             var editProjectViewModel = new EditProjectViewModel
             {
                 AvailableStatuses = availableStatuses,
                 AvailableMembers = availableMembers,
-                AvailableClients = availableClients
+                AvailableClients = availableClients,
             };
 
             var viewModel = new ProjectsViewModel
@@ -113,22 +113,23 @@ namespace WebbApp.Controllers
             });
         }
 
-        public async Task<IEnumerable<SelectListItem>> PopulateAvailableMembersAsync()
+        public async Task<IEnumerable<MemberSelectListItemViewModel>> PopulateAvailableMembersAsync()
         {
             var memberResult = await _memberService.GetMembersAsync();
             if (!memberResult.Succeeded)
             {
-                return new List<SelectListItem>();
+                return new List<MemberSelectListItemViewModel>();
             }
             var members = memberResult.Result;
             if (members == null || !members.Any())
             {
-                return new List<SelectListItem>();
+                return new List<MemberSelectListItemViewModel>();
             }
-            return members.Select(m => new SelectListItem
+            return members.Select(m => new MemberSelectListItemViewModel
             {
                 Value = m.Id,
-                Text = $"{m.FirstName} {m.LastName}"
+                Text = $"{m.FirstName} {m.LastName}",
+                ImagePath = m.ImagePath ?? "Images/Avatars/Avatar1.svg"
             });
         }
 

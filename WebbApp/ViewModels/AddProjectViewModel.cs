@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DomainLibrary.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
@@ -46,7 +47,7 @@ public class AddProjectViewModel
     [Required(ErrorMessage = "You must select a member")]
     public List<string> MemberIds { get; set; } = [];
 
-    public IEnumerable<SelectListItem> AvailableMembers { get; set; } = [];
+    public IEnumerable<MemberSelectListItemViewModel> AvailableMembers { get; set; } = [];
 
 
 
@@ -61,6 +62,7 @@ public class AddProjectViewModel
 
     public IEnumerable<SelectListItem> AvailableStatuses { get; set; } = [];
 
-    //Lista över members. populera den i controllen och stoppa in i model in i projects-action
-
+ 
 }
+
+

@@ -61,14 +61,19 @@
 				</div>
 			</div>
 
-
 			<div class="form-group">
 				<label asp-for="MemberIds"></label>
-				<select asp-for="MemberIds" name="MemberIds" asp-items="Model.AvailableMembers" multiple class="js-member-select">
+				<select asp-for="MemberIds" asp-items="Model.AvailableMembers" multiple class="js-member-select">
+					@foreach (var member in Model.AvailableMembers)
+					{
+						<option value="@member.Value" data-image="/@member.ImagePath">@member.Text</option>
+					}
+
 					<option disabled selected value="">-- Select member --</option>
 				</select>
 				<span asp-validation-for="MemberIds"></span>
 			</div>
+
 
 			<div class="form-group">
 				<label asp-for="Budget"></label>

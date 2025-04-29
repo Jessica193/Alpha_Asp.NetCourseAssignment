@@ -8,13 +8,13 @@ function filterProjects(status) {
 
 
             //functions are located in site.js
-            initializeTomSelects();
             initializeDropdowns();
             initializeOpenModals();
             initializeProjectModals();
             initializeCloseModals();
             initializeImagePreview(previewSize);
             initializeModalFormSubmission(); 
+            initializeTomSelects();
 
         })
 }
