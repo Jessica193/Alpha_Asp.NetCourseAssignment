@@ -41,17 +41,17 @@
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("form");
-    if (!form) return;
+    document.querySelectorAll("form").forEach(form => {
+        const fields = form.querySelectorAll('input[data-val="true"]');
 
-    const fields = form.querySelectorAll('input[data-val="true"]');
-
-    fields.forEach(field => {
-        if (field.type === "checkbox") {
-            field.addEventListener("change", () => validateField(field));
-        } else {
-            field.addEventListener("input", () => validateField(field));
-            field.addEventListener("blur", () => validateField(field));
-        }
+        fields.forEach(field => {
+            if (field.type === "checkbox") {
+                field.addEventListener("change", () => validateField(field));
+            } else {
+                field.addEventListener("input", () => validateField(field));
+                field.addEventListener("blur", () => validateField(field));
+            }
+        });
     });
+
 });
