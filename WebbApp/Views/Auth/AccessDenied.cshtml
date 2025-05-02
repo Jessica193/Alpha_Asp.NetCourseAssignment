@@ -3,8 +3,12 @@
 	ViewData["Title"] = "Access denied";
 }
 
-<section id="accessDenied">
-	<h1>@ViewData["Title"]</h1>
-	<a class="btn btn-blue" asp-action="Dashboard" asp-controller="Admin">To dashboard</a>
-</section>
 
+<div class="center-screen">
+	<main class="surface">
+		<section id="accessDenied">
+			<h1>@ViewData["Title"]</h1>
+			<a class="btn btn-blue" asp-action="Dashboard" asp-controller="Admin">To dashboard</a>
+		</section>
+	</main>
+</div>

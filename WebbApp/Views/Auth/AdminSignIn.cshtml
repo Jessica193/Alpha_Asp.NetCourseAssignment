@@ -1,0 +1,77 @@
+﻿@using WebbApp.ViewModels
+@model MemberSignInViewModel
+@{
+	Layout = "_CleanLayout";
+	ViewData["Title"] = "Log In";
+}
+
+	<main>
+		<section class="admin-signin-wrapper">
+			<div class="welcome-container">
+				<div class="welcome-text">
+					<h1><span>Welcome to</span> <strong>Admin Panel</strong></h1>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper nisl erat, vel convallis elit fermentum pellentesque. Sed mollis velit facilisis facilisis viverra.</p>
+				</div>
+			</div>
+
+			<div class="center-screen admin-signin-form-container">
+				<section id="login">
+					<h1 class="form-headline">Login</h1>
+
+					@await Html.PartialAsync("Partials/Components/_ExternalAuthenticationPartial")
+
+					<div class="divider">
+						<span>OR</span>
+					</div>
+
+					@if (!string.IsNullOrEmpty(ViewBag?.ErrorMessage))
+					{
+						<div class="alert-notification error">
+							<p>@ViewBag?.ErrorMessage</p>
+						</div>
+					}
+
+					<form novalidate method="post" asp-action="AdminSignIn" asp-controller="Auth">
+						<input type="hidden" name="returnUrl" value="@ViewBag?.ReturnUrl" />
+						<div class="form-group">
+							<label asp-for="Email"></label>
+							<div class="field-group">
+								<input asp-for="Email" />
+								<span asp-validation-for="Email"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label asp-for="Password"></label>
+							<div class="field-group">
+								<input asp-for="Password" />
+								<span asp-validation-for="Password"></span>
+							</div>
+						</div>
+
+
+						<div class="checkbox-group">
+							<div>
+								<input id="remember" type="checkbox" name="remember">
+								<label for="remember">Remember me</label>
+							</div>
+							<a href="#">Forgot Password?</a>
+						</div>
+
+						<button class="btn btn-blue btn-submit" type="submit">Log In</button>
+					</form>
+
+					<div class="alternative-text">
+						<span>Don't have an account?</span>
+						<a href="@Url.Action("SignUp", "Auth")">SignUp</a>
+					</div>
+				</section>
+
+			</div>
+
+		</section>
+	</main>
+
+
+@await Html.PartialAsync("Partials/Javascripts/_ValidationScriptsPartial")
+

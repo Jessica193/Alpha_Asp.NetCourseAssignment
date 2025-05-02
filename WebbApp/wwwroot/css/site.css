@@ -698,7 +698,6 @@ form input.modal-date {
 .modal .field-group {
     position: static;
     display: grid;
-/*    align-items: center;*/
 }
 
 
@@ -1606,6 +1605,208 @@ input:checked + .slider {
             border-radius: 50%;
             border: 2px solid var(--account-name-image-border-color);
         }
+
+
+/*Admin-signIn*/
+
+.admin-signin-wrapper {
+    height: 100dvh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.welcome-container {
+    background-image: url("/Images/blur.png");
+    background-size: cover;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 4rem;
+    text-align: left;
+}
+.welcome-text h1 {
+    font-size: 4.5rem;
+    line-height: 5.625rem;
+    font-weight: 700;
+    font-family: var(--font-family-admin-login-header);
+    color: #FFFFFF;
+}
+
+    .welcome-text h1 strong {
+        color: var(--Orange--);
+        font-size: 4.5rem;
+        line-height: 5.625rem;
+        font-weight: 700;
+        display: block;
+    }
+
+.welcome-text p {
+    font-size: 0.9375rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #FFFFFF;
+}
+.admin-signin-form-container {
+    background-color: var(--Surface--);
+    width: 100%;
+    height: 100%;
+}
+
+.admin-signin-wrapper #login {
+    background-color: var(--Surface--);
+    width: 70%;
+    height: auto;
+}
+
+/*CookieConsent Partial*/
+
+#cookieModal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--Surface--);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+    #cookieModal .cookie-card {
+        width: 70%;
+        display: grid;
+        grid-template-columns: 5fr 3fr;
+        border-radius: 1rem;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.086);
+    }
+
+        #cookieModal .cookie-card .cookie-content {
+            padding: 3rem 5rem;
+            background-color: var(--Accent--);
+            color: white;
+        }
+
+        #cookieModal .cookie-card h3 {
+            margin-bottom: 3rem;
+            font-weight: 300;
+            color: white;
+        }
+
+    #cookieModal h4 {
+        margin-bottom: 2rem;
+    }
+
+.settings {
+    background-color: var(--Surface--);
+    padding: 3rem 2rem;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+    .settings .buttons {
+        display: grid;
+        gap: 1rem;
+        margin-top: 4rem;
+    }
+
+    .settings .cookie-options {
+    }
+
+        .settings .cookie-options .cookie-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            font-weight: 400;
+            font-size: 1.1em;
+        }
+
+        .settings .cookie-options .cookie-switch-label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 1rem;
+        }
+
+
+.cookie-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 23px;
+}
+
+    .cookie-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.cookie-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--Accent--);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .cookie-slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 4px;
+        bottom: 4px;
+        background-color: #ffffff;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+input:checked + .cookie-slider {
+    background-color: #000000c1;
+}
+
+input:focus + .cookie-slider {
+    box-shadow: 0 0 1px #ffffff;
+}
+
+input:checked + .cookie-slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.cookie-slider.round {
+    border-radius: 34px;
+}
+
+    .cookie-slider.round:before {
+        border-radius: 50%;
+    }
+
+.cookieConsentIcon {
+    font-size: 1.5rem;
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    cursor: pointer;
+    color: var(--Accent--);
+}
+
+
+
 
    
 

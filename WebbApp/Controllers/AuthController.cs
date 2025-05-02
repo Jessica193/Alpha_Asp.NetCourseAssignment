@@ -47,6 +47,52 @@ namespace WebbApp.Controllers
         }
         #endregion
 
+        #region AdminSignIn
+
+        public IActionResult AdminSignIn(string returnUrl = "~/")
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AdminSignIn(MemberSignInViewModel model, string returnUrl = "~/")
+        {
+            ViewBag.ErrorMessage = "";
+            ViewBag.ReturnUrl = returnUrl;
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ErrorMessage = "Invalid email or password";
+                return View(model);
+            }
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null || !await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                ViewBag.ErrorMessage = "Only admins can log in here";
+                return View(model);
+            }
+
+            var memberSignInFormData = model.MapTo<MemberSignInFormData>();
+            var result = await _authService.SignInAsync(memberSignInFormData);
+            if (result.Succeeded)
+            {
+                if (Url.IsLocalUrl(returnUrl))
+                {
+                    return LocalRedirect(returnUrl);
+                }
+                return RedirectToAction("Dashboard", "Admin");
+            }
+
+            ViewBag.ErrorMessage = result.Error;
+            return View(model);
+        }
+
+
+        #endregion
+
         #region SignIn
         public IActionResult SignIn(string returnUrl = "~/")
         {

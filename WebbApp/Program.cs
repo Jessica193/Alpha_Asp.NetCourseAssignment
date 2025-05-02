@@ -51,6 +51,12 @@ builder.Services.AddAuthentication(options =>
         options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!; ;
     });
 
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => !context.Request.Cookies.ContainsKey("cookieConsent");
+    options.MinimumSameSitePolicy = SameSiteMode.Lax;
+});
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IMemberAddressService, MemberAddressService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
@@ -82,6 +88,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseCookiePolicy();
 app.UseAuthentication();
 app.UseAuthorization();
 
