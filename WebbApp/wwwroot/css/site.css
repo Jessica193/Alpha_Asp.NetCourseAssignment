@@ -645,7 +645,8 @@ form input.modal-date {
 
     form input::placeholder,
     form select::placeholder,
-    form textarea::placeholder {
+    form textarea::placeholder,
+    .ql-editor.ql-blank::before{
         color: var(--text-muted-color);
         font-size: 0.9rem;
     }
@@ -672,8 +673,6 @@ form input.modal-date {
         border-color: var(--DarkRed--);
     }
 
-
-
 .modal form .field-validation-error {
     position: static;
     z-index: 1;
@@ -699,9 +698,6 @@ form input.modal-date {
     position: static;
     display: grid;
 }
-
-
-
 
     form .checkbox-group {
         display: flex;
@@ -1804,6 +1800,62 @@ input:checked + .cookie-slider:before {
     cursor: pointer;
     color: var(--Accent--);
 }
+
+/*Quill editor*/
+.wysiwyg {
+    position: relative;
+    border: 1px solid var(--Border100--);
+    border-radius: 14px;
+    transition: border-color 0.15s ease-in-out;
+    background-color: var(--Surface--);
+    padding-bottom: 2.5rem; /* utrymme för toolbaren längst ner */
+}
+
+    /* Fokus på hela blocket */
+    .wysiwyg:focus-within {
+        border-color: var(--form-border-focus-color);
+    }
+
+    /* Dölj textarea */
+    .wysiwyg textarea {
+        display: none;
+    }
+
+    /* Själva redigeringsytan (Quill container) */
+    .wysiwyg > .ql-container {
+        border: none !important;
+        border-radius: 14px;
+        font-family: var(--font-family-standard);
+        font-size: 1em;
+        font-weight: 400;
+        color: var(--text-color-BodyDark--);
+        min-height: 150px;
+        background-color: transparent;
+    }
+
+/* Innehållsytan */
+.ql-editor {
+    padding: 0.75rem;
+    outline: none;
+}
+
+/* Toolbar inuti editorn */
+.wysiwyg .ql-toolbar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: none;
+    border-top: 1px solid var(--Border100--);
+    border-radius: 0 0 14px 14px;
+    background-color: transparent;
+    color: var(--text-color-BodyDark--);
+}
+
+
+
+
+
 
 
 

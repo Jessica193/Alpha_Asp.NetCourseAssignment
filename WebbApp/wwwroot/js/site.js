@@ -93,17 +93,54 @@ function initializeDropdowns() {
 }
 
 //3. Open modals
+//function initializeOpenModals() {
+//    document.querySelectorAll('[data-modal="true"]').forEach(button => {
+//        button.addEventListener('click', () => {
+//            const modalTarget = button.getAttribute('data-target');
+//            const modal = document.querySelector(modalTarget);
+//            if (modal) {
+//                modal.style.display = 'flex';
+//            }
+//        });
+//    });
+//}
+// 3. Open modals
 function initializeOpenModals() {
+    const initializedQuills = new Set(); // För att undvika dubbelinitiering
+
     document.querySelectorAll('[data-modal="true"]').forEach(button => {
         button.addEventListener('click', () => {
             const modalTarget = button.getAttribute('data-target');
             const modal = document.querySelector(modalTarget);
             if (modal) {
                 modal.style.display = 'flex';
+
+                // Kolla om den här modalen har en Quill-editor
+                const wysiwygEditor = modal.querySelector('[id$="wysiwyg-editor"]');
+                const wysiwygToolbar = modal.querySelector('[id$="wysiwyg-toolbar"]');
+                const textarea = modal.querySelector('textarea');
+
+                if (wysiwygEditor && wysiwygToolbar && textarea) {
+                    const editorId = `#${wysiwygEditor.id}`;
+                    const toolbarId = `#${wysiwygToolbar.id}`;
+                    const textareaId = `#${textarea.id}`;
+
+                    // Initiera bara om det inte redan är gjort
+                    if (!initializedQuills.has(editorId)) {
+                        initWysiwyg(
+                            editorId,
+                            toolbarId,
+                            textareaId,
+                            textarea.value
+                        );
+                        initializedQuills.add(editorId);
+                    }
+                }
             }
         });
     });
 }
+
 
 //4. Handle form submission
 function initializeModalFormSubmission() {
@@ -290,6 +327,12 @@ function initializeProjectModals() {
                         imagePreview.src = `/${data.imagePath}`;
                         imagePreview.closest('.image-previewer')?.classList.add('selected');
                     }
+
+                    // Update quill-editor with description
+                    const quillEditor = modal.querySelector('.ql-editor');
+                    if (quillEditor) {
+                        quillEditor.innerHTML = data.description ?? '';
+                    }
                 }
             } catch (error) {
                 console.error('Error collecting project data:', error);
@@ -416,6 +459,26 @@ async function processImage(file, imagePreview, previewer, previewSize = 150) {
         console.error('Failed on image-processing', error);
     }
 }
+
+//Quill wysiwyg
+function initWysiwyg(wysiwygEditorId, wysiwygToolbarId, textareaId, content) {
+    const textarea = document.querySelector(textareaId);
+    const quill = new Quill(wysiwygEditorId, {
+        modules: {
+            syntax: true,
+            toolbar: wysiwygToolbarId
+        },
+        placeholder: 'Type something',
+        theme: 'snow'
+    });
+
+    if (content) quill.root.innerHTML = content;
+
+    quill.on('text-change', () => {
+        textarea.value = quill.root.innerHTML;
+    });
+}
+
 
 
 

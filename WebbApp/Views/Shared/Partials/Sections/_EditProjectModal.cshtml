@@ -36,12 +36,30 @@
 
 			<div class="form-group">
 				<label asp-for="Description"></label>
-				<div class="field-group">
-					<textarea asp-for="Description" rows="5"></textarea>
-					<span asp-validation-for="Description"></span>
+				<div class="field-group wysiwyg">
+					<textarea asp-for="Description" id="editDescription"></textarea>
+					<div id="project-edit-wysiwyg-editor"></div>
+					<div id="project-edit-wysiwyg-toolbar">
+						<span class="ql-formats">
+							<button class="ql-bold"></button>
+							<button class="ql-italic"></button>
+							<button class="ql-underline"></button>
+						</span>
+						<span class="ql-formats">
+							<button class="ql-align" value=""></button>
+							<button class="ql-align" value="center"></button>
+							<button class="ql-align" value="right"></button>
+						</span>
+						<span class="ql-formats">
+							<button class="ql-list" value="bullet"></button>
+							<button class="ql-list" value="ordered"></button>
+						</span>
+						<span class="ql-formats">
+							<button class="ql-link"></button>
+						</span>
+					</div>
 				</div>
 			</div>
-
 
 			<div class="form-group form-group-flex">
 				<div class="form-group">
@@ -102,3 +120,5 @@
 </div>
 
 @await Html.PartialAsync("Partials/Javascripts/_ValidationScriptsPartial")
+
+
