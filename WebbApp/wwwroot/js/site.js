@@ -92,18 +92,6 @@ function initializeDropdowns() {
     });
 }
 
-//3. Open modals
-//function initializeOpenModals() {
-//    document.querySelectorAll('[data-modal="true"]').forEach(button => {
-//        button.addEventListener('click', () => {
-//            const modalTarget = button.getAttribute('data-target');
-//            const modal = document.querySelector(modalTarget);
-//            if (modal) {
-//                modal.style.display = 'flex';
-//            }
-//        });
-//    });
-//}
 // 3. Open modals
 function initializeOpenModals() {
     const initializedQuills = new Set(); // För att undvika dubbelinitiering
